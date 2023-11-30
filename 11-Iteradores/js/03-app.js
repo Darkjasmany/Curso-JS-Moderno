@@ -5,7 +5,6 @@
 // 15 30 45 ... Fizz Buzz
 
 for (let i = 1; i <= 100; i++) {
-    7;
     if (i % 15 === 0) {
         console.log(`${i} ... FIZZ ... BUZZ`);
     } else if (i % 3 === 0) {

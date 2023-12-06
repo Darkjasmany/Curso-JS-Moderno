@@ -8,12 +8,21 @@ let articulosCarrito = []; // Inicia vacio este arreglo, es let porque vamos agr
 // Van a existir muchos Eventos por eso se recomienda crear una función para agruparlos
 
 cargarEventListener();
+
 function cargarEventListener() {
     // Cuando agregas un curso presionando "Agregar al Carrito"
     listaCursos.addEventListener("click", agregarCurso);
 
     // Elimina cursos del carrito
     carrito.addEventListener("click", eliminarCurso);
+
+    // Vaciar carrito
+    vaciarCarritoBtn.addEventListener("click", () => {
+        // console.log("Vaciando Carrito");
+
+        articulosCarrito = []; //Reseteamos el carrito
+        limpiarHTML(); // Eliminamos todo el HTML
+    });
 }
 
 // FUNCIONES

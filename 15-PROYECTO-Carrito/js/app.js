@@ -55,21 +55,26 @@ function carritoHTML() {
     limpiarHTML();
     // Recorre el carrito y genera el HTML
     articulosCarrito.forEach((curso) => {
+        // console.log(curso);
+        // Una vez que funciona el codigo hay que mejoraro, por lo que usaremos destrocturing
+        const { imagen, titulo, precio, cantidad, id } = curso;
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>
-          ${curso.imagen}
+            <img src="${imagen}" width="100">
           </td>
+          <td>${titulo}</td>
+          <td>${precio}</td>
+          <td>${cantidad}</td>
           <td>
-          ${curso.titulo}
-          </td>
-          <td>
-          ${curso.precio}
-          </td>
-          <td>
-          ${curso.cantidad}
+            <a href="#" class="borrar-curso" data-id=${id}> X </a>
           </td>
         `;
+
+        // Antes del destrocturing
+        // <img src="${curso.imagen}" width="100">
+        // </td>
+        // <td>${curso.titulo}</td>
 
         // Agrega el HTML del carrito en el Tbody
         contenedorCarrito.appendChild(row);

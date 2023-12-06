@@ -18,12 +18,26 @@ function agregarCurso(e) {
     // validamos que esta funcion se ejecute solo cuando se de click a un boton que tenga la clase agregar-carrito
     if (e.target.classList.contains("agregar-carrito")) {
         //Para saber que curso estamos agregando
-        console.log(e.target.parentElement.parentElement); //Subo dos veces de elemento
-        // console.log("Dio clic en agregar carrito de los cursos");
+        const cursoSeleccionado =
+            e.target.parentElement.parentElement.parentElement;
+        leerDatosCurso(cursoSeleccionado);
+        // console.log(e.target.parentElement.parentElement); //Subo dos veces de elemento
     }
 
     // console.log(e.target.classList); // Para ver las clases de los que le estamos dando click en el DOM
 }
 
 // Lee el contenido del HTML al que le dimos click y extrae la informacion del curso
-function leerDatosCurso() {}
+function leerDatosCurso(curso) {
+    console.log(curso); // recordar el curso tiene el HTML
+
+    // Crear un objeto con el contenido del curso actual
+    const infoCurso = {
+        imagen: curso.querySelector("img").src, // Extraer la ruta de la imagen
+        titulo: curso.querySelector("h4").textContent, // Extraer el texto del curso
+        precio: curso.querySelector(".precio span").textContent, // Extrayendo el precio del HTML
+        id: curso.querySelector("a").getAttribute("data-id"), // Selecciono el id del curso seleccionado
+        cantidad: 1,
+    };
+    console.log(infoCurso);
+}

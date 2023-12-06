@@ -42,9 +42,25 @@ function leerDatosCurso(curso) {
     };
     // console.log(infoCurso);
 
-    //Agrega elemetos al arreglo de carrito
-    //voy a tomar una copia de lo que hay en el carrito para no perder la informacion del carrito, va a ir creciendo de forma dinamica
-    articulosCarrito = [...articulosCarrito, infoCurso];
+    // Revisa si un elemento ya existe en el carrito
+    const existe = articulosCarrito.some((curso) => curso.id === infoCurso.id);
+    if (existe) {
+        // Actualizamos la cantidad
+        const cursos = articulosCarrito.map((curso) => {
+            if (curso.id === infoCurso.id) {
+                curso.cantidad++;
+                return curso; // retorna el objeto actualizado
+            } else {
+                return curso; // retorna el objeto queno son duplicados
+            }
+        }); // crea un nuevo arreglo e itera sobre todos los elementos del carrito
+        articulosCarrito = [...cursos];
+        // console.log(articulosCarrito);
+    } else {
+        // Agregamos el curso al carrito tomando una copia para no perder la informacion del carrito, va a ir creciendo de forma dinamica
+        articulosCarrito = [...articulosCarrito, infoCurso];
+    }
+
     // console.log(articulosCarrito);
     carritoHTML();
 }

@@ -10,7 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Asinar eventos
     // blur - es disparado cuando un elemento ha perdido su foco
     // input - es disparado cuando estas escribiendo, mas para una validación en tiempo real
-    inputEmail.addEventListener("blur", function (e) {
-        console.log(e.target.value); // value es no es una propiedad es del DOM de JS
-    });
+    //no se pone parentesis porque sino la mandas a llamar, pero sin parentesis se la llama solo cuando se ejecuta este envento
+    //function (e) {
+    // console.log(e.target.value); // value es no es una propiedad es del DOM de JS, aqui ya tenemos el valor del Email mostrado en consola
+    //});
+
+    inputEmail.addEventListener("blur", validar);
+    inputAsunto.addEventListener("blur", validar);
+    inputMensaje.addEventListener("blur", validar);
+
+    // Funciones
+    function validar(e) {
+        // El evento se ejecuta igual, aca recibe como parametro ese evento
+        console.log(e.target.value);
+    }
 });

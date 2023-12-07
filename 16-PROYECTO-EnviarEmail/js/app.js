@@ -1,6 +1,6 @@
 // Esto se ejecuta una vez que todo nuestro HTML se haya descargado
 document.addEventListener("DOMContentLoaded", function () {
-    // Variables
+    // VARIABLES
     // Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector("#email");
     const inputAsunto = document.querySelector("#asunto");
@@ -19,15 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
     inputAsunto.addEventListener("blur", validar);
     inputMensaje.addEventListener("blur", validar);
 
-    // Funciones
+    // FUNCIONES
     // El evento se ejecuta igual, aca recibe como parametro ese evento
     function validar(e) {
         // console.log(e.target.value); // Leer lo que fue ingresado en un campo
         // trim elimina espacios vacios
         if (e.target.value.trim() === "") {
-            console.log("No hay nada");
+            mostrarAlerta();
         } else {
             console.log("Si hay");
         }
+    }
+
+    function mostrarAlerta() {
+        // Generar una alerta con HTML con Scripting JS
+
+        const error = document.createElement("P"); // Recomendacion la etiqueta ponerlas en mayusculas
+        error.textContent = "Hubo un error"; //Poner texto
+        console.log(error);
     }
 });

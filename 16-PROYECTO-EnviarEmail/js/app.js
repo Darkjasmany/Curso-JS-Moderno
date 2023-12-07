@@ -20,8 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
     inputMensaje.addEventListener("blur", validar);
 
     // Funciones
+    // El evento se ejecuta igual, aca recibe como parametro ese evento
     function validar(e) {
-        // El evento se ejecuta igual, aca recibe como parametro ese evento
-        console.log(e.target.value);
+        // console.log(e.target.value); // Leer lo que fue ingresado en un campo
+        // trim elimina espacios vacios
+        if (e.target.value.trim() === "") {
+            console.log("No hay nada");
+        } else {
+            console.log("Si hay");
+        }
     }
 });

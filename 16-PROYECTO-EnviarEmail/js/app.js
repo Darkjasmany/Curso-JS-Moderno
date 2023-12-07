@@ -23,17 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // FUNCIONES
     // El evento se ejecuta igual, aca recibe como parametro ese evento
     function validar(e) {
+        // console.log(e.target.parentElement); // Envio a la consola el div que es el elemento padre del input
         // console.log(e.target.id); // revisa el id de los elementos selccionados
         // console.log(e.target.value); // Leer lo que fue ingresado en un campo
         // trim elimina espacios vacios
         if (e.target.value.trim() === "") {
-            mostrarAlerta(`El campo ${e.target.id} es obligatorio`);
+            mostrarAlerta(
+                `El campo ${e.target.id} es obligatorio`,
+                e.target.parentElement
+            );
         } else {
             console.log("Si hay");
         }
     }
 
-    function mostrarAlerta(mensaje) {
+    function mostrarAlerta(mensaje, referencia) {
         // Generar una alerta con HTML con Scripting JS
 
         const error = document.createElement("P"); // Recomendacion la etiqueta ponerlas en mayusculas
@@ -42,7 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(error);
 
         // Inyectar el error al formulario
-        formulario.appendChild(error); // aregar hasta el final un elemento(hijo) a uno ya existente (papa)
+        // formulario.appendChild(error); // aregar hasta el final un elemento(hijo) a uno ya existente (papa)
         // formulario.innerHTML = error.innerHTML; // Este remplaza todo el contenido
+        // Mostrando la alerta junto a su campo
+        referencia.appendChild(error);
     }
 });

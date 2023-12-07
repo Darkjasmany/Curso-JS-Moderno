@@ -32,18 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 `El campo ${e.target.id} es obligatorio`,
                 e.target.parentElement
             );
-        } else {
-            console.log("Si hay");
+            return; // Detiene ejeccion del codigo
         }
+
+        limpiarAlerta(e.target.parentElement);
+        // console.log("Despues del IF");
     }
 
     function mostrarAlerta(mensaje, referencia) {
-        // Comprueba si ya existe una alerta
-        const alerta = referencia.querySelector(".alerta"); //referncia es el div padre
-        // console.log(alerta);
-        if (alerta) {
-            alerta.remove(); // Esta eliminando la alerta previa
-        }
+        limpiarAlerta(referencia);
 
         // Generar una alerta con HTML con Scripting JS
         const error = document.createElement("P"); // Recomendacion la etiqueta ponerlas en mayusculas
@@ -61,5 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
         referencia.appendChild(error); // Mostrando la alerta junto a su campo
         // formulario.appendChild(error); // aregar hasta el final un elemento(hijo) a uno ya existente (papa)
         // formulario.innerHTML = error.innerHTML; // Este remplaza todo el contenido
+    }
+
+    function limpiarAlerta(referencia) {
+        // Comprueba si ya existe una alerta
+        const alerta = referencia.querySelector(".alerta"); //referncia es el div padre
+        // console.log(alerta);
+        if (alerta) {
+            alerta.remove(); // Esta eliminando la alerta previa
+        }
     }
 });

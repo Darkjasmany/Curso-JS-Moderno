@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputEmail = document.querySelector("#email");
     const inputAsunto = document.querySelector("#asunto");
     const inputMensaje = document.querySelector("#mensaje");
-    // console.log(mensaje);
+    const formulario = document.querySelector("#formulario");
+    // console.log(formulario);
 
     // Asinar eventos
     // blur - es disparado cuando un elemento ha perdido su foco
@@ -22,20 +23,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // FUNCIONES
     // El evento se ejecuta igual, aca recibe como parametro ese evento
     function validar(e) {
+        // console.log(e.target.id); // revisa el id de los elementos selccionados
         // console.log(e.target.value); // Leer lo que fue ingresado en un campo
         // trim elimina espacios vacios
         if (e.target.value.trim() === "") {
-            mostrarAlerta();
+            mostrarAlerta(`El campo ${e.target.id} es obligatorio`);
         } else {
             console.log("Si hay");
         }
     }
 
-    function mostrarAlerta() {
+    function mostrarAlerta(mensaje) {
         // Generar una alerta con HTML con Scripting JS
 
         const error = document.createElement("P"); // Recomendacion la etiqueta ponerlas en mayusculas
-        error.textContent = "Hubo un error"; //Poner texto
-        console.log(error);
+        error.textContent = mensaje; //Poner texto
+        error.classList.add("bg-red-600", "text-white", "p-2", "text-center");
+        // console.log(error);
+
+        // Inyectar el error al formulario
+        formulario.appendChild(error); // aregar hasta el final un elemento(hijo) a uno ya existente (papa)
+        // formulario.innerHTML = error.innerHTML; // Este remplaza todo el contenido
     }
 });

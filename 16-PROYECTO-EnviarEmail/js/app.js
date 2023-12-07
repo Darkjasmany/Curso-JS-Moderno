@@ -38,17 +38,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function mostrarAlerta(mensaje, referencia) {
-        // Generar una alerta con HTML con Scripting JS
+        // Comprueba si ya existe una alerta
+        const alerta = referencia.querySelector(".alerta"); //referncia es el div padre
+        // console.log(alerta);
+        if (alerta) {
+            alerta.remove(); // Esta eliminando la alerta previa
+        }
 
+        // Generar una alerta con HTML con Scripting JS
         const error = document.createElement("P"); // Recomendacion la etiqueta ponerlas en mayusculas
         error.textContent = mensaje; //Poner texto
-        error.classList.add("bg-red-600", "text-white", "p-2", "text-center");
+        error.classList.add(
+            "bg-red-600",
+            "text-white",
+            "p-2",
+            "text-center",
+            "alerta" // clase solo para las alertas
+        );
         // console.log(error);
 
         // Inyectar el error al formulario
+        referencia.appendChild(error); // Mostrando la alerta junto a su campo
         // formulario.appendChild(error); // aregar hasta el final un elemento(hijo) a uno ya existente (papa)
         // formulario.innerHTML = error.innerHTML; // Este remplaza todo el contenido
-        // Mostrando la alerta junto a su campo
-        referencia.appendChild(error);
     }
 });

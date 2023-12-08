@@ -34,14 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     btnReset.addEventListener("click", function (e) {
         e.preventDefault(); // previene el comportamiento por defecto del reset
-
-        //reiniciar el objeto
-        email.email = "";
-        email.asunto = "";
-        email.mensaje = "";
-
-        formulario.reset(); // Este .reset existe en formulario
-        comprobarEmail();
+        resetFormulario();
     });
 
     // FUNCIONES
@@ -51,6 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log("enviando"); // se ejecuta cuando se de click al boton enviar
         spinner.classList.add("flex");
         spinner.classList.remove("hidden");
+
+        setTimeout(() => {
+            spinner.classList.remove("flex");
+            spinner.classList.add("hidden");
+
+            resetFormulario();
+        }, 3000);
     }
 
     // El evento se ejecuta igual, aca recibe como parametro ese evento
@@ -135,5 +135,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         btnSubmit.classList.remove("opacity-50");
         btnSubmit.disabled = false;
+    }
+
+    function resetFormulario() {
+        //reiniciar el objeto
+        email.email = "";
+        email.asunto = "";
+        email.mensaje = "";
+
+        formulario.reset(); // Este .reset existe en formulario
+        comprobarEmail();
     }
 });

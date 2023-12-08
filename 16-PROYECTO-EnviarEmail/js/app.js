@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formulario = document.querySelector("#formulario");
     const btnSubmit = document.querySelector("#formulario button[type=submit]");
     const btnReset = document.querySelector("#formulario button[type=reset]");
+    const spinner = document.querySelector("#spinner");
     // console.log(btnSubmit);
 
     // Asinar eventos
@@ -29,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
     inputAsunto.addEventListener("input", validar);
     inputMensaje.addEventListener("input", validar);
 
+    formulario.addEventListener("submit", enviarEmail);
+
     btnReset.addEventListener("click", function (e) {
         e.preventDefault(); // previene el comportamiento por defecto del reset
 
@@ -42,6 +45,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // FUNCIONES
+
+    function enviarEmail(e) {
+        e.preventDefault();
+        // console.log("enviando"); // se ejecuta cuando se de click al boton enviar
+        spinner.classList.add("flex");
+        spinner.classList.remove("hidden");
+    }
+
     // El evento se ejecuta igual, aca recibe como parametro ese evento
     function validar(e) {
         // console.log(e.target.parentElement); // Envio a la consola el div que es el elemento padre del input

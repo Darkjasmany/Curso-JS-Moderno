@@ -2,21 +2,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
 
+    // Este arreglo tiene que llamarse igual al que el id
     const email = {
         email: "",
         asunto: "",
         mensaje: "",
+        CC: "",
     };
 
     // Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector("#email");
+    const inputCC = document.querySelector("#CC");
     const inputAsunto = document.querySelector("#asunto");
     const inputMensaje = document.querySelector("#mensaje");
     const formulario = document.querySelector("#formulario");
     const btnSubmit = document.querySelector("#formulario button[type=submit]");
     const btnReset = document.querySelector("#formulario button[type=reset]");
     const spinner = document.querySelector("#spinner");
-    // console.log(btnSubmit);
+    // console.log(inputCC);
 
     // Asinar eventos
     // blur - es disparado cuando un elemento ha perdido su foco
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //});
 
     inputEmail.addEventListener("input", validar);
+    inputCC.addEventListener("input", validar);
     inputAsunto.addEventListener("input", validar);
     inputMensaje.addEventListener("input", validar);
 
@@ -59,9 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function validar(e) {
         // console.log(e.target.parentElement); // Envio a la consola el div que es el elemento padre del input
         // console.log(e.target.id); // revisa el id de los elementos selccionados
-        // console.log(e.target.value); // Leer lo que fue ingresado en un campo
+        //console.log(e.target.value); // Leer lo que fue ingresado en un campo
         // trim elimina espacios vacios
-        if (e.target.value.trim() === "") {
+        // console.log(e.target.value.trim());
+        // Leer
+        // console.log(e.target.id); //
+        if (e.target.value.trim() === "" && e.target.id !== "CC") {
+            // No entra a la validacion del campo obligatorio para el elemento de Copia
             mostrarAlerta(
                 `El campo ${e.target.id} es obligatorio`,
                 e.target.parentElement
@@ -71,12 +79,29 @@ document.addEventListener("DOMContentLoaded", function () {
             return; // Detiene ejeccion del codigo
         }
 
+        // Este If valida si el email tanto del destino como del copia son validos
+        // console.log(e.target.value);
+        // se niega para que se muestre cuando no se pase la validacion
         if (e.target.id === "email" && !validarEmail(e.target.value)) {
-            // se niega para que se muestre cuando no se pase la validacion
+            //Este if infico si el campo email esta vacio como no es obligatorio para la CC lo niego para pasar la validacion que no es valido
+            // console.log(e.target.value);
+            // if (e.target.id === "CC" && !e.target.value === "") {
             mostrarAlerta("El email no es valido", e.target.parentElement);
             email[e.target.name] = "";
             comprobarEmail();
             return; // Detiene
+            // }
+        }
+
+        if (e.target.id === "CC" && !validarEmail(e.target.value)) {
+            //Este if infico si el campo email esta vacio como no es obligatorio para la CC lo niego para pasar la validacion que no es valido
+            // console.log(e.target.value);
+            // if (e.target.id === "CC" && !e.target.value === "") {
+            mostrarAlerta("El email no es valido", e.target.parentElement);
+            email[e.target.name] = "";
+            comprobarEmail();
+            return; // Detiene
+            // }
         }
 
         limpiarAlerta(e.target.parentElement);
@@ -128,8 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function comprobarEmail() {
-        // console.log(email);
         // console.log(Object.values(email).includes('')); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+
         if (Object.values(email).includes("")) {
             btnSubmit.classList.add("opacity-50");
             btnSubmit.disabled = true;
@@ -144,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
         email.email = "";
         email.asunto = "";
         email.mensaje = "";
+        // email.CC = "";
 
         formulario.reset(); // Este .reset existe en formulario
         comprobarEmail();

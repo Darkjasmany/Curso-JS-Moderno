@@ -1,12 +1,20 @@
 // Esto se ejecuta una vez que todo nuestro HTML se haya descargado
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
+
+    const email = {
+        email: "",
+        asunto: "",
+        mensaje: "",
+    };
+
     // Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector("#email");
     const inputAsunto = document.querySelector("#asunto");
     const inputMensaje = document.querySelector("#mensaje");
     const formulario = document.querySelector("#formulario");
-    // console.log(formulario);
+    const btnSubmit = document.querySelector("#formulario button[type=submit]");
+    // console.log(btnSubmit);
 
     // Asinar eventos
     // blur - es disparado cuando un elemento ha perdido su foco
@@ -16,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(e.target.value); // value es no es una propiedad es del DOM de JS, aqui ya tenemos el valor del Email mostrado en consola
     //});
 
-    inputEmail.addEventListener("blur", validar);
-    inputAsunto.addEventListener("blur", validar);
-    inputMensaje.addEventListener("blur", validar);
+    inputEmail.addEventListener("input", validar);
+    inputAsunto.addEventListener("input", validar);
+    inputMensaje.addEventListener("input", validar);
 
     // FUNCIONES
     // El evento se ejecuta igual, aca recibe como parametro ese evento
@@ -32,11 +40,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 `El campo ${e.target.id} es obligatorio`,
                 e.target.parentElement
             );
+            email[e.target.name] = "";
+            comprobarEmail();
             return; // Detiene ejeccion del codigo
+        }
+
+        if (e.target.id === "email" && !validarEmail(e.target.value)) {
+            // se niega para que se muestre cuando no se pase la validacion
+            mostrarAlerta("El email no es valido", e.target.parentElement);
+            email[e.target.name] = "";
+            comprobarEmail();
+            return; // Detiene
         }
 
         limpiarAlerta(e.target.parentElement);
         // console.log("Despues del IF");
+
+        // Asignar los valores
+        email[e.target.id] = e.target.value.trim().toLowerCase(); // Elimina espacios y que todo este en minuscula
+        // console.log(email);
+
+        // Comprobar el objeto de email
+        comprobarEmail();
     }
 
     function mostrarAlerta(mensaje, referencia) {
@@ -67,5 +92,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (alerta) {
             alerta.remove(); // Esta eliminando la alerta previa
         }
+    }
+
+    function validarEmail(email) {
+        const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        const resultado = regex.test(email); // metodo para comprobar con la expresion true or false
+        // console.log(resultado);
+        return resultado;
+    }
+
+    function comprobarEmail() {
+        // console.log(email);
+        // console.log(Object.values(email).includes('')); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+        if (Object.values(email).includes("")) {
+            btnSubmit.classList.add("opacity-50");
+            btnSubmit.disabled = true;
+            return;
+        }
+        btnSubmit.classList.remove("opacity-50");
+        btnSubmit.disabled = false;
     }
 });

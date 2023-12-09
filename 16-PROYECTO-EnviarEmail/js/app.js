@@ -44,9 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     enlaceCC.addEventListener("click", function (e) {
         e.preventDefault();
-        if (!inputCC.classList.contains("hidden") && inputCC.value === "") {
+        if (
+            !inputCC.classList.contains("hidden") &&
+            inputCC.value.trim() === ""
+        ) {
             inputCC.classList.add("hidden");
-            email[e.target.name] = "";
+            // email[e.target.name] = "";
             return;
         }
         inputCC.classList.remove("hidden");

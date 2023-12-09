@@ -83,26 +83,23 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(e.target.value);
         // se niega para que se muestre cuando no se pase la validacion
         if (e.target.id === "email" && !validarEmail(e.target.value)) {
-            //Este if infico si el campo email esta vacio como no es obligatorio para la CC lo niego para pasar la validacion que no es valido
             // console.log(e.target.value);
-            // if (e.target.id === "CC" && !e.target.value === "") {
             mostrarAlerta("El email no es valido", e.target.parentElement);
             email[e.target.name] = "";
             comprobarEmail();
             return; // Detiene
-            // }
+        } else if (
+            e.target.id === "CC" &&
+            e.target.value.trim() !== "" &&
+            !validarEmail(e.target.value)
+        ) {
+            mostrarAlerta("El email no es valido", e.target.parentElement);
+            email[e.target.name] = "";
+            comprobarEmail();
+            return;
         }
 
-        if (e.target.id === "CC" && !validarEmail(e.target.value)) {
-            //Este if infico si el campo email esta vacio como no es obligatorio para la CC lo niego para pasar la validacion que no es valido
-            // console.log(e.target.value);
-            // if (e.target.id === "CC" && !e.target.value === "") {
-            mostrarAlerta("El email no es valido", e.target.parentElement);
-            email[e.target.name] = "";
-            comprobarEmail();
-            return; // Detiene
-            // }
-        }
+        console.log(email);
 
         limpiarAlerta(e.target.parentElement);
         // console.log("Despues del IF");

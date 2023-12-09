@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnSubmit = document.querySelector("#formulario button[type=submit]");
     const btnReset = document.querySelector("#formulario button[type=reset]");
     const spinner = document.querySelector("#spinner");
-    // console.log(inputCC);
+    const enlaceCC = document.querySelector("#enlaceCC");
+    // console.log(enlaceCC);
 
     // Asinar eventos
     // blur - es disparado cuando un elemento ha perdido su foco
@@ -39,6 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
     btnReset.addEventListener("click", function (e) {
         e.preventDefault(); // previene el comportamiento por defecto del reset
         resetFormulario();
+    });
+
+    enlaceCC.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (!inputCC.classList.contains("hidden") && inputCC.value === "") {
+            inputCC.classList.add("hidden");
+            email[e.target.name] = "";
+            return;
+        }
+        inputCC.classList.remove("hidden");
     });
 
     // FUNCIONES
@@ -147,8 +158,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function comprobarEmail() {
-        console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
-        console.log(Object.values(email).includes("", 3)); //reviso si hay un vacio en la posicion 3 de mi arreglo
+        // console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+        // console.log(Object.values(email).includes("", 3)); //reviso si hay un vacio en la posicion 3 de mi arreglo
+
+        console.log(email);
 
         if (Object.values(email).includes("")) {
             btnSubmit.classList.add("opacity-50");

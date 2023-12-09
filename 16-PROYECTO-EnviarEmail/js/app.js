@@ -99,10 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        console.log(email);
-
         limpiarAlerta(e.target.parentElement);
-        // console.log("Despues del IF");
 
         // Asignar los valores
         email[e.target.id] = e.target.value.trim().toLowerCase(); // Elimina espacios y que todo este en minuscula
@@ -150,7 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function comprobarEmail() {
-        // console.log(Object.values(email).includes('')); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+        console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+        console.log(Object.values(email).includes("", 3)); //reviso si hay un vacio en la posicion 3 de mi arreglo
 
         if (Object.values(email).includes("")) {
             btnSubmit.classList.add("opacity-50");
@@ -160,6 +158,19 @@ document.addEventListener("DOMContentLoaded", function () {
         btnSubmit.classList.remove("opacity-50");
         btnSubmit.disabled = false;
     }
+
+    // function comprobarEmail() {
+    //     console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
+    //     console.log(Object.values(email));
+
+    //     if (Object.values(email).includes("")) {
+    //         btnSubmit.classList.add("opacity-50");
+    //         btnSubmit.disabled = true;
+    //         return;
+    //     }
+    //     btnSubmit.classList.remove("opacity-50");
+    //     btnSubmit.disabled = false;
+    // }
 
     function resetFormulario() {
         //reiniciar el objeto

@@ -163,8 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (Object.values(email).includes("")) {
             btnSubmit.classList.add("opacity-50");
             btnSubmit.disabled = true;
-            console.log("entre aqui");
-            // return;
         }
 
         if (
@@ -176,24 +174,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
             btnSubmit.classList.remove("opacity-50");
             btnSubmit.disabled = false;
-            console.log("entre aca");
-
-            // return;
         }
 
-        if (
-            // Object.values(email).includes("", 3)
-            inputEmail.value.trim() !== "" &&
-            inputCC.value.trim() !== "" &&
-            inputAsunto.value.trim() !== "" &&
-            inputMensaje.value.trim() !== ""
-        ) {
+        if (!Object.values(email).includes("")) {
             btnSubmit.classList.remove("opacity-50");
             btnSubmit.disabled = false;
-            console.log("Todos los campos llenos");
-            // console.log("entre aca");
-
-            // return;
         }
     }
 

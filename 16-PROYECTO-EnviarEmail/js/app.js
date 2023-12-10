@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
             inputCC.value.trim() === ""
         ) {
             inputCC.classList.add("hidden");
-            // email[e.target.name] = "";
             return;
         }
         inputCC.classList.remove("hidden");
@@ -161,20 +160,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function comprobarEmail() {
-        // console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
-        // console.log(Object.values(email).includes("", 3)); //reviso si hay un vacio en la posicion 3 de mi arreglo
-
-        console.log(email);
-
         if (Object.values(email).includes("")) {
             btnSubmit.classList.add("opacity-50");
             btnSubmit.disabled = true;
-            return;
+            console.log("entre aqui");
+            // return;
         }
-        btnSubmit.classList.remove("opacity-50");
-        btnSubmit.disabled = false;
+
+        if (
+            // Object.values(email).includes("", 3)
+            inputEmail.value.trim() !== "" &&
+            inputCC.value.trim() === "" &&
+            inputAsunto.value.trim() !== "" &&
+            inputMensaje.value.trim() !== ""
+        ) {
+            btnSubmit.classList.remove("opacity-50");
+            btnSubmit.disabled = false;
+            console.log("entre aca");
+
+            // return;
+        }
+
+        if (
+            // Object.values(email).includes("", 3)
+            inputEmail.value.trim() !== "" &&
+            inputCC.value.trim() !== "" &&
+            inputAsunto.value.trim() !== "" &&
+            inputMensaje.value.trim() !== ""
+        ) {
+            btnSubmit.classList.remove("opacity-50");
+            btnSubmit.disabled = false;
+            console.log("Todos los campos llenos");
+            // console.log("entre aca");
+
+            // return;
+        }
     }
 
+    // Codigo del Profe Juan
     // function comprobarEmail() {
     //     console.log(Object.values(email).includes("")); // va a tomar todos los valores del objeto y los va asignar en un arreglo y ahi mismo con .include a a revisar si alguno tiene algun vacio muestra true hasta que no esten vacio muestra false
     //     console.log(Object.values(email));
@@ -193,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
         email.email = "";
         email.asunto = "";
         email.mensaje = "";
-        // email.CC = "";
+        email.CC = "";
 
         formulario.reset(); // Este .reset existe en formulario
         comprobarEmail();
@@ -218,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
             alertaExito.remove();
+            inputCC.classList.add("hidden");
         }, 3000);
     }
 });

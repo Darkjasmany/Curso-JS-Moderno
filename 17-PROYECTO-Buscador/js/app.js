@@ -39,3 +39,5 @@ function llenarSelectYear() {
         year.appendChild(opcion); // Agrega las opciones de año al select
     }
 }
+
+// Prueba

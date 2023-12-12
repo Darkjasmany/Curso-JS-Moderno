@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarAutos(autos); // Muestra los automaviles al cargar todo el HTML
 
     llenarSelectYear(); // LLena las opciones de Años
+
+    llenarSelectMarca(autos);
 });
 
 // Event listener para los select de busqueda
@@ -108,6 +110,19 @@ function llenarSelectYear() {
         opcion.textContent = i;
         year.appendChild(opcion); // Agrega las opciones de año al select
     }
+}
+
+function llenarSelectMarca(autos) {
+    console.log(autos);
+    autos.forEach((auto) => {
+        // console.log(auto.marca);
+        const option = document.createElement("option");
+        option.value = auto.marca;
+        option.textContent = auto.marca;
+        marca.appendChild(option);
+        // console.log(option);
+    });
+    console.log(marca);
 }
 
 // Funcion que filtra en base a la busqueda

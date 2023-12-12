@@ -125,9 +125,26 @@ function filtrarAuto() {
         .filter(filtrarTransmision)
         .filter(filtrarColor);
 
-    console.log(resultado);
+    // console.log(resultado);
 
-    mostrarAutos(resultado);
+    // Si hay algo muestra los automaviles
+    if (resultado.length) {
+        mostrarAutos(resultado);
+    } else {
+        noResultado();
+    }
+}
+
+function noResultado() {
+    // Limpiar el HTML
+    limpiarHTML();
+
+    // Agrego el mensaje de no hay resultado
+    const noResultado = document.createElement("DIV");
+    noResultado.classList.add("alerta", "error");
+    noResultado.textContent =
+        "No Hay Resultados, Intenta con otros terminos de busqueda";
+    resultado.appendChild(noResultado); // sobre el resultado definimos el el mensaje ya que no se estara llenando con el arreglo de autos
 }
 
 function filtrarMarca(auto) {

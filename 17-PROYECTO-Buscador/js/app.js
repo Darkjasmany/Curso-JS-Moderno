@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     llenarSelectMarca(autos);
 
     llenarSelectColor(autos);
+
+    llenarSelectPuertas(autos);
+
+    llenarSelectTransmision(autos);
 });
 
 // Event listener para los select de busqueda
@@ -116,31 +120,50 @@ function llenarSelectYear() {
 
 function llenarSelectMarca(autos) {
     // console.log(autos);
-
-    const unicaMarca = [];
+    const uniqueMarca = [];
 
     autos.forEach((auto) => {
-        if (!unicaMarca.includes(auto.marca)) {
+        const { marca } = auto;
+        if (!uniqueMarca.includes(marca)) {
             // console.log(!unicaMarca.includes(auto.marca)); // Reviso si mi nuevo arreglo incluye la marca del arreglo maxivo de auto, la primera vez es false si no la niego, pero negando va ingresando marca con marca con el push evitando duplicados
-            unicaMarca.push(auto.marca);
+            uniqueMarca.push(marca);
         }
     });
 
     // console.log(unicaMarca); // aqui tengo el arreglo nuevo de marcas depurado los repetidos
     // console.log(marca);
 
-    unicaMarca.forEach((unicaMarca) => {
-        // console.log(unicaMarca);
-        const options = document.createElement("option");
-        options.value = unicaMarca;
-        options.textContent = unicaMarca;
-        marca.appendChild(options);
-    });
+    llenarSelect(uniqueMarca, marca);
 }
 
-// Desde aqui estoy tranatando de mejorar la funcionalidad
+function llenarSelectPuertas(autos) {
+    const uniquePuertas = [];
+
+    autos.forEach((auto) => {
+        const { puertas } = auto;
+        if (!uniquePuertas.includes(puertas)) {
+            uniquePuertas.push(puertas);
+        }
+        // console.log(uniquePuertas);
+    });
+
+    llenarSelect(uniquePuertas, puertas);
+}
+
+function llenarSelectTransmision() {
+    const uniqueTransmision = [];
+
+    autos.forEach((auto) => {
+        const { transmision } = auto;
+        if (!uniqueTransmision.includes(transmision)) {
+            uniqueTransmision.push(transmision);
+        }
+    });
+
+    llenarSelect(uniqueTransmision, transmision);
+}
+
 function llenarSelectColor(autos) {
-    const { color } = autos;
     const uniqueColor = [];
 
     autos.forEach((auto) => {
@@ -151,14 +174,15 @@ function llenarSelectColor(autos) {
         }
     });
 
+    // console.log(uniqueColor);
     // console.log(color);
-    console.log(uniqueColor);
+    llenarSelect(uniqueColor, color);
 }
 
-// Optimizando la funcion llenar select
+// funcion llenar select de busqueda
 function llenarSelect(arregloFiltrado, idSelect) {
-    console.log(arregloFiltrado);
-    console.log(idSelect);
+    // console.log(arregloFiltrado);
+    // console.log(idSelect);
 
     arregloFiltrado.forEach((unicoElemento) => {
         const options = document.createElement("option");
@@ -167,7 +191,6 @@ function llenarSelect(arregloFiltrado, idSelect) {
         idSelect.appendChild(options);
     });
 }
-//Hasta aca
 
 // Funcion que filtra en base a la busqueda
 function filtrarAuto() {

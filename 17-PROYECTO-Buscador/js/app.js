@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     llenarSelectYear(); // LLena las opciones de Años
 
     llenarSelectMarca(autos);
+
+    llenarSelectColor(autos);
 });
 
 // Event listener para los select de busqueda
@@ -128,13 +130,44 @@ function llenarSelectMarca(autos) {
     // console.log(marca);
 
     unicaMarca.forEach((unicaMarca) => {
-        console.log(unicaMarca);
+        // console.log(unicaMarca);
         const options = document.createElement("option");
         options.value = unicaMarca;
         options.textContent = unicaMarca;
         marca.appendChild(options);
     });
 }
+
+// Desde aqui estoy tranatando de mejorar la funcionalidad
+function llenarSelectColor(autos) {
+    const { color } = autos;
+    const uniqueColor = [];
+
+    autos.forEach((auto) => {
+        const { color } = auto;
+        // return;
+        if (!uniqueColor.includes(color)) {
+            uniqueColor.push(color);
+        }
+    });
+
+    // console.log(color);
+    console.log(uniqueColor);
+}
+
+// Optimizando la funcion llenar select
+function llenarSelect(arregloFiltrado, idSelect) {
+    console.log(arregloFiltrado);
+    console.log(idSelect);
+
+    arregloFiltrado.forEach((unicoElemento) => {
+        const options = document.createElement("option");
+        options.value = unicoElemento;
+        options.textContent = unicoElemento;
+        idSelect.appendChild(options);
+    });
+}
+//Hasta aca
 
 // Funcion que filtra en base a la busqueda
 function filtrarAuto() {

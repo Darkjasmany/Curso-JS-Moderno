@@ -113,16 +113,27 @@ function llenarSelectYear() {
 }
 
 function llenarSelectMarca(autos) {
-    console.log(autos);
+    // console.log(autos);
+
+    const unicaMarca = [];
+
     autos.forEach((auto) => {
-        // console.log(auto.marca);
-        const option = document.createElement("option");
-        option.value = auto.marca;
-        option.textContent = auto.marca;
-        marca.appendChild(option);
-        // console.log(option);
+        if (!unicaMarca.includes(auto.marca)) {
+            // console.log(!unicaMarca.includes(auto.marca)); // Reviso si mi nuevo arreglo incluye la marca del arreglo maxivo de auto, la primera vez es false si no la niego, pero negando va ingresando marca con marca con el push evitando duplicados
+            unicaMarca.push(auto.marca);
+        }
     });
-    console.log(marca);
+
+    // console.log(unicaMarca); // aqui tengo el arreglo nuevo de marcas depurado los repetidos
+    // console.log(marca);
+
+    unicaMarca.forEach((unicaMarca) => {
+        console.log(unicaMarca);
+        const options = document.createElement("option");
+        options.value = unicaMarca;
+        options.textContent = unicaMarca;
+        marca.appendChild(options);
+    });
 }
 
 // Funcion que filtra en base a la busqueda

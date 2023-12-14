@@ -179,9 +179,12 @@ function llenarSelectColor(autos) {
     llenarSelect(uniqueColor, color);
 }
 
-// funcion llenar select de busqueda
+// funcion para mostrar select de busqueda con los valores que existen en el arreglo principal
 function llenarSelect(arregloFiltrado, idSelect) {
     // console.log(arregloFiltrado);
+    // const nuevoArray = arregloFiltrado.short;
+    // console.log(nuevoArray);
+
     // console.log(idSelect);
 
     arregloFiltrado.forEach((unicoElemento) => {

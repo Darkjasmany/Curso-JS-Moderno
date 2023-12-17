@@ -6,6 +6,8 @@ const maximo = document.querySelector("#maximo");
 const puertas = document.querySelector("#puertas");
 const transmision = document.querySelector("#transmision");
 const color = document.querySelector("#color");
+const btnReset = document.querySelector("#reset");
+const buscador = document.querySelector("#buscador");
 
 // Contenedor para los resultados
 const resultado = document.querySelector("#resultado");
@@ -76,6 +78,12 @@ color.addEventListener("change", (e) => {
     datosBusqueda.color = e.target.value;
     filtrarAuto();
     // console.log(datosBusqueda);
+});
+
+btnReset.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    resetFormulario();
 });
 
 // FUNCIONES
@@ -303,4 +311,16 @@ function filtrarColor(auto) {
     }
 
     return auto;
+}
+
+function resetFormulario() {
+    datosBusqueda.marca = "";
+    datosBusqueda.year = "";
+    datosBusqueda.minimo = "";
+    datosBusqueda.maximo = "";
+    datosBusqueda.puertas = "";
+    datosBusqueda.transmision = "";
+    datosBusqueda.color = "";
+
+    buscador.reset(); // Este reset existe en el formulario
 }

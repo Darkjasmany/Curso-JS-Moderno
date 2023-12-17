@@ -314,6 +314,9 @@ function filtrarColor(auto) {
 }
 
 function resetFormulario() {
+    limpiarHTML();
+
+    // Reinicio mi arreglo
     datosBusqueda.marca = "";
     datosBusqueda.year = "";
     datosBusqueda.minimo = "";
@@ -323,4 +326,6 @@ function resetFormulario() {
     datosBusqueda.color = "";
 
     buscador.reset(); // Este reset existe en el formulario
+
+    mostrarAutos(autos);
 }

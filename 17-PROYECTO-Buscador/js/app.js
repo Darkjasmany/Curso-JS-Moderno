@@ -82,12 +82,13 @@ color.addEventListener("change", (e) => {
 
 btnReset.addEventListener("click", function (e) {
     e.preventDefault();
-
     resetFormulario();
 });
 
 // FUNCIONES
 function mostrarAutos(autos) {
+    // console.log(btnReset.disabled);
+
     // Elimina el HTML previo
     limpiarHTML();
 
@@ -104,6 +105,24 @@ function mostrarAutos(autos) {
         // Insertar en el HTML
         resultado.appendChild(autoHTML);
     });
+
+    // Habilitar o deshabilitar boton de RESET
+    // console.log(!datosBusqueda.length);
+
+    if (datosBusqueda.length !== 0) {
+        console.log("1ue ese");
+        console.log(datosBusqueda);
+    }
+
+    if (Object.values(datosBusqueda).includes("")) {
+        btnReset.classList.add("opacity-50");
+        btnReset.disabled = true;
+    }
+
+    if (!Object.values(datosBusqueda).includes("")) {
+        btnReset.classList.remove("opacity-50");
+        btnReset.disabled = false;
+    }
 }
 
 // Limpiar el HTML

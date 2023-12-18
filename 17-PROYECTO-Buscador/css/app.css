@@ -72,6 +72,7 @@ form {
 }
 
 /* MIS ESTILOS PERSONALIZADOS */
+
 .bg-gray-800 {
     --tw-bg-opacity: 1;
     background-color: rgb(31 41 55 / var(--tw-bg-opacity));
@@ -129,4 +130,8 @@ form {
 
 .btn:hover {
     transform: scale(1.5);
+}
+
+.opacity-50 {
+    opacity: 0.5;
 }

@@ -106,9 +106,19 @@ function mostrarAutos(autos) {
         resultado.appendChild(autoHTML);
     });
 
-    // Habilitar o deshabilitar boton de RESET
-    // console.log(!datosBusqueda.length);
+    resetONOFF();
+}
 
+// Limpiar el HTML
+function limpiarHTML() {
+    //miestras haya algo
+    while (resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+}
+
+// Habilitar o Deshabilitar boton RESET
+function resetONOFF() {
     if (datosBusqueda.length !== 0) {
         console.log("1ue ese");
         console.log(datosBusqueda);
@@ -122,14 +132,6 @@ function mostrarAutos(autos) {
     if (!Object.values(datosBusqueda).includes("")) {
         btnReset.classList.remove("opacity-50");
         btnReset.disabled = false;
-    }
-}
-
-// Limpiar el HTML
-function limpiarHTML() {
-    //miestras haya algo
-    while (resultado.firstChild) {
-        resultado.removeChild(resultado.firstChild);
     }
 }
 

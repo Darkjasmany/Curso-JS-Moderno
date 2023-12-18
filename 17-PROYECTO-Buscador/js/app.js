@@ -119,20 +119,24 @@ function limpiarHTML() {
 
 // Habilitar o Deshabilitar boton RESET
 function resetONOFF() {
-    if (datosBusqueda.length !== 0) {
-        console.log("1ue ese");
-        console.log(datosBusqueda);
-    }
-
-    if (Object.values(datosBusqueda).includes("")) {
-        btnReset.classList.add("opacity-50");
-        btnReset.disabled = true;
-    }
-
-    if (!Object.values(datosBusqueda).includes("")) {
+    console.log(datosBusqueda);
+    if (
+        marca.value !== "" ||
+        year.value !== "" ||
+        minimo.value !== "" ||
+        maximo.value !== "" ||
+        puertas.value !== "" ||
+        transmision.value !== "" ||
+        color.value !== ""
+    ) {
         btnReset.classList.remove("opacity-50");
         btnReset.disabled = false;
+        console.log("Entre aka");
+        return;
     }
+
+    btnReset.classList.add("opacity-50");
+    btnReset.disabled = true;
 }
 
 // Genera los años del select

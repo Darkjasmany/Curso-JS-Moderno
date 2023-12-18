@@ -119,7 +119,7 @@ function limpiarHTML() {
 
 // Habilitar o Deshabilitar boton RESET
 function resetONOFF() {
-    console.log(datosBusqueda);
+    // console.log(datosBusqueda);
     if (
         marca.value !== "" ||
         year.value !== "" ||
@@ -131,7 +131,6 @@ function resetONOFF() {
     ) {
         btnReset.classList.remove("opacity-50");
         btnReset.disabled = false;
-        console.log("Entre aka");
         return;
     }
 
@@ -163,10 +162,11 @@ function llenarSelectMarca(autos) {
         }
     });
 
-    // console.log(unicaMarca); // aqui tengo el arreglo nuevo de marcas depurado los repetidos
+    // console.log(uniqueMarca); // aqui tengo el arreglo nuevo de marcas depurado los repetidos
     // console.log(marca);
+    // uniqueMarca.sort(); // Ordenar comparadndo la posicion del valor Unicode
 
-    llenarSelect(uniqueMarca, marca);
+    llenarSelect(uniqueMarca.sort(), marca);
 }
 
 function llenarSelectPuertas(autos) {
@@ -180,7 +180,7 @@ function llenarSelectPuertas(autos) {
         // console.log(uniquePuertas);
     });
 
-    llenarSelect(uniquePuertas, puertas);
+    llenarSelect(uniquePuertas.sort(), puertas);
 }
 
 function llenarSelectTransmision() {
@@ -193,7 +193,7 @@ function llenarSelectTransmision() {
         }
     });
 
-    llenarSelect(uniqueTransmision, transmision);
+    llenarSelect(uniqueTransmision.sort(), transmision);
 }
 
 function llenarSelectColor(autos) {
@@ -209,17 +209,11 @@ function llenarSelectColor(autos) {
 
     // console.log(uniqueColor);
     // console.log(color);
-    llenarSelect(uniqueColor, color);
+    llenarSelect(uniqueColor.sort(), color);
 }
 
 // funcion para mostrar select de busqueda con los valores que existen en el arreglo principal
 function llenarSelect(arregloFiltrado, idSelect) {
-    // console.log(arregloFiltrado);
-    // const nuevoArray = arregloFiltrado.short;
-    // console.log(nuevoArray);
-
-    // console.log(idSelect);
-
     arregloFiltrado.forEach((unicoElemento) => {
         const options = document.createElement("option");
         options.value = unicoElemento;

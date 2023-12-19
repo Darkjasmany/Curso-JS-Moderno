@@ -218,6 +218,7 @@ function llenarSelect(arregloFiltrado, idSelect) {
         const options = document.createElement("option");
         options.value = unicoElemento;
         options.textContent = unicoElemento;
+        options.classList.add("capitalize");
         idSelect.appendChild(options);
     });
 }

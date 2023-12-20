@@ -25,7 +25,19 @@ function agregarTweet(e) {
         return; // Evita que se ejecuten más lineas de código, funciona en un if siempre y cuando este en una funcion
     }
 
-    console.log("Agregando Tweet");
+    const tweetObj = {
+        id: Date.now(), // Date.now() obtiene la fecha desde 1970 hasta la actual con el milisegundo
+        tweet, // En version actuales de JS si la llave y el valor se llaman igual puedes dejar solo 1 y se agregan bien los valores, esto es igual => tweet: tweet,
+    };
+
+    // Añadir al arreglo de tweet
+    tweets = [...tweets, tweetObj]; // tomamos una copia de los tweets con el spadoperator, y le agregamos el tweet actual lo que el usuario escribe
+
+    // Una vez agregado vamos a crear el HTML
+    crearHtml();
+
+    // Reiniciar el formulario
+    formulario.reset();
 }
 
 // Mostrar mensaje de error
@@ -42,4 +54,30 @@ function mostrarError(error) {
     setTimeout(() => {
         mensajeError.remove();
     }, 3000);
+}
+
+// Muestra un listado de los tweets
+function crearHtml() {
+    limpiarHTML();
+
+    if (tweets.length > 0) {
+        tweets.forEach((tweet) => {
+            // Crear el HTML
+            const li = document.createElement("li");
+
+            // Añadir el texto
+            li.innerHTML = tweet.tweet;
+
+            // Insertarlo en el HTML
+            listaTweets.appendChild(li);
+        });
+    }
+}
+
+// Limpiar el html
+function limpiarHTML() {
+    // mientras exista elementos
+    while (listaTweets.firstChild) {
+        listaTweets.removeChild(listaTweets.firstChild); // Remueve el primer hijo que vaya encontrando
+    }
 }

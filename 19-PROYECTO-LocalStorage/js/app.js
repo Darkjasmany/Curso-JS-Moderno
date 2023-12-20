@@ -15,7 +15,7 @@ function eventListeners() {
     document.addEventListener("DOMContentLoaded", () => {
         tweets = JSON.parse(localStorage.getItem("tweets") || []); // Cuando el documento este listo vamos a leer de localStorage y lo que voy a leer es tweets que esta definido en localStorage si te mara null asignalo como un arreglo vacio
 
-        console.log(tweets);
+        // console.log(tweets);
 
         crearHtml(); // Solo se ejecuta si hay algo
     });

@@ -1,6 +1,8 @@
 // Variables
 const formulario = document.querySelector("#formulario");
 const listaTweets = document.querySelector("#lista-tweets");
+const activarEliminar = document.querySelector("#delete");
+
 let tweets = [];
 // console.log(tweets);
 
@@ -10,6 +12,9 @@ eventListeners();
 function eventListeners() {
     // Cuando el usuario agrega un nuevo tweets
     formulario.addEventListener("submit", agregarTweet);
+
+    // Eliminar el arreglo de Tweets
+    formulario.addEventListener("reset", eliminarTweets);
 
     // Cuando el documente este cargado en su totalidad, vamos a ejecutar una funcion
     document.addEventListener("DOMContentLoaded", () => {
@@ -96,6 +101,13 @@ function crearHtml() {
         });
     }
 
+    if (tweets.length > 2) {
+        activarEliminar.classList.remove("hidden");
+        // console.log(activarEliminar);
+        return;
+    }
+    activarEliminar.classList.add("hidden");
+
     sincronizarStorage();
 }
 
@@ -111,6 +123,11 @@ function borrarTweet(id) {
 
     // console.log(tweets);
     crearHtml();
+}
+
+// Eliminar Arreglos de Tweets
+function eliminarTweets() {
+    console.log(tweets);
 }
 
 // Limpiar el html

@@ -15,7 +15,7 @@ function eventListeners() {
     document.addEventListener("DOMContentLoaded", () => {
         tweets = JSON.parse(localStorage.getItem("tweets") || []); // Cuando el documento este listo vamos a leer de localStorage y lo que voy a leer es tweets que esta definido en localStorage si te mara null asignalo como un arreglo vacio
 
-        // console.log(tweets);
+        console.log(tweets);
 
         crearHtml(); // Solo se ejecuta si hay algo
     });
@@ -72,11 +72,24 @@ function crearHtml() {
 
     if (tweets.length > 0) {
         tweets.forEach((tweet) => {
+            // Agregar un boton de eliminar
+            const btnEliminar = document.createElement("a");
+            btnEliminar.classList.add("borrar-tweet");
+            btnEliminar.textContent = "X";
+
+            // Añadir la funcion de eliminar, hay que hacerlo de esta forma cuando se tiene que pasar parametros
+            btnEliminar.onclick = () => {
+                borrarTweet(tweet.id);
+            };
+
             // Crear el HTML
             const li = document.createElement("li");
 
             // Añadir el texto
             li.innerHTML = tweet.tweet;
+
+            // Asignar el boton
+            li.appendChild(btnEliminar);
 
             // Insertarlo en el HTML
             listaTweets.appendChild(li);
@@ -89,6 +102,15 @@ function crearHtml() {
 // Agrega los tweets actuales a localStorage
 function sincronizarStorage() {
     localStorage.setItem("tweets", JSON.stringify(tweets));
+}
+
+// Elimina un tweet
+function borrarTweet(id) {
+    // console.log("borrando", id);
+    tweets = tweets.filter((tweet) => tweet.id !== id);
+
+    // console.log(tweets);
+    crearHtml();
 }
 
 // Limpiar el html

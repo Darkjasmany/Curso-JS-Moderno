@@ -41,7 +41,11 @@ function agregarTweet(e) {
 
     // Validacion
     if (tweet === "") {
-        mostrarError("Un mensaje no puede ir vacio");
+        mostrarError(
+            "Un mensaje no puede ir vacio",
+            e.target.parentElement.parentElement.parentElement.parentElement
+        );
+
         return; // Evita que se ejecuten más lineas de código, funciona en un if siempre y cuando este en una funcion
     }
 
@@ -61,7 +65,9 @@ function agregarTweet(e) {
 }
 
 // Mostrar mensaje de error
-function mostrarError(error) {
+function mostrarError(error, referencia) {
+    limpiarAlerta(referencia);
+
     const mensajeError = document.createElement("P");
     mensajeError.textContent = error;
     mensajeError.classList.add("error");
@@ -74,6 +80,15 @@ function mostrarError(error) {
     setTimeout(() => {
         mensajeError.remove();
     }, 3000);
+}
+
+// Limpiar Mensaje de error previo
+function limpiarAlerta(referencia) {
+    const alerta = referencia.querySelector(".error");
+
+    if (alerta) {
+        alerta.remove();
+    }
 }
 
 // Muestra un listado de los tweets

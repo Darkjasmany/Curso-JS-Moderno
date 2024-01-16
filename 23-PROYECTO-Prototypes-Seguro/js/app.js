@@ -21,6 +21,27 @@ UI.prototype.llenarOpciones = () => {
     }
 };
 
+// Muestra alertas en pantalla
+// se usa el arroy function porque este prototype no hace referencia a this, ya que UI no recibe nada
+UI.prototype.mostrarMensaje = (mensaje, tipo) => {
+    const div = document.createElement("div");
+
+    if (tipo === "error") {
+        // div.classlist.add("error");
+        console.log("error");
+    } else {
+        // div.classlist.add("correcto");
+        console.log("correcto");
+    }
+
+    // div.classlist.add("mensaje", "mt-10");
+    div.textContent = mensaje;
+
+    // Insertar en el HTML
+    const formulario = document.querySelector("#cotizar-seguro");
+    formulario.insertBefore(div, document.querySelector("#resultado")); // nuevo nodo, y el nodo de referencia donde quieres insertarlo
+};
+
 // Instanciar UI
 const ui = new UI();
 // console.log(ui);
@@ -51,6 +72,7 @@ function cotizarSeguro(e) {
 
     if (marca == "" || year == "" || tipo == "") {
         console.log("No paso la validadcion");
+        ui.mostrarMensaje("Todos los campos son obligatorios", "error");
     } else {
         console.log("Si paso la validadcion");
     }

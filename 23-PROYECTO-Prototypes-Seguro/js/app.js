@@ -84,7 +84,7 @@ UI.prototype.mostrarMensaje = (mensaje, tipo) => {
 
     setTimeout(() => {
         div.remove();
-    }, 3000);
+    }, 2000);
 };
 
 function limpiarAlerta() {
@@ -97,17 +97,46 @@ function limpiarAlerta() {
 }
 
 UI.prototype.mostrarResultado = (total, seguro) => {
+    // Cuando instanciamos tambien pasamos el objeto de seguro
+    const { marca, year, tipo } = seguro;
+    let textoMarca;
+
+    switch (marca) {
+        case "1":
+            textoMarca = "Americano";
+            break;
+        case "2":
+            textoMarca = "Asiatico";
+            break;
+        case "3":
+            textoMarca = "Europeo";
+            break;
+        default:
+            break;
+    }
+
     // Crear el resultaod
     const div = document.createElement("div");
     div.classList.add("mt-10");
 
     div.innerHTML = `
     <p class="header">Tu Resumen</p>
-    <p class="font-bold">Total: ${total}</p>
+    <p class="font-bold">Marca: <span class="font-normal">${textoMarca}</span></p>
+    <p class="font-bold">Año: <span class="font-normal">${year}</span></p>
+    <p class="font-bold">Tipo: <span class="font-normal capitalize">${tipo}</span></p>
+    <p class="font-bold">Total: <span class="font-normal">$ ${total}</span></p>
     `;
 
     const resultadoDiv = document.querySelector("#resultado");
-    resultadoDiv.appendChild(div);
+
+    // Mostrar el spinner
+    const spinner = document.querySelector("#cargando");
+    spinner.style.display = "block";
+
+    setTimeout(() => {
+        spinner.style.display = "none"; // Se desaparece el spinner
+        resultadoDiv.appendChild(div); // Una vez eliminado el spinner muestre el total
+    }, 2000);
 };
 
 // Instanciar UI
@@ -146,6 +175,12 @@ function cotizarSeguro(e) {
     }
 
     ui.mostrarMensaje("Cotizando...", "exito");
+
+    // Ocultar las cotizaciones previas
+    const resultados = document.querySelector("#resultado div"); // selecciono el div dentro de resultado
+    if (resultados != null) {
+        resultados.remove();
+    }
 
     // Instanciar el seguro
     const seguro = new Seguro(marca, year, tipo);

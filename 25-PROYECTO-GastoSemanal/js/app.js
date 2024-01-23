@@ -22,7 +22,19 @@ class Presupuesto {
     nuevoGasto(gasto) {
         // console.log(gasto);
         this.gastos = [...this.gastos, gasto]; // tomamos una copia de gasto, y agregamos el nuevo gasto al final
-        console.log(this.gastos);
+        // console.log(this.gastos);
+        this.calcularRestante();
+    }
+
+    calcularRestante() {
+        const gastado = this.gastos.reduce(
+            (total, gasto) => total + gasto.cantidad,
+            0
+        ); // Itera sobre todos los valores del arreglo
+        // console.log(gastado);
+
+        this.restante = this.presupuesto - gastado;
+        // console.log(this.restante);
     }
 }
 
@@ -61,6 +73,47 @@ class UI {
         setTimeout(() => {
             divMensaje.remove();
         }, 3000);
+    }
+
+    agregarGastoListado(gastos) {
+        // Elimina el HTML previo
+        this.limpiarHTML();
+        // console.log(gastos);
+
+        // Iterar sobre los gastos
+        gastos.forEach((gasto) => {
+            // console.log(gasto);
+            const { cantidad, nombre, id } = gasto;
+
+            // Crear un LI
+            const nuevoGasto = document.createElement("li");
+            nuevoGasto.className =
+                "list-group-item d-flex justify-content-between align-items-center"; // Asignar un valor diferente a la classe
+            // nuevoGasto.setAttribute("data-id", id); // Esto hace lo mismo de abajo
+            nuevoGasto.dataset.id = id;
+
+            // Agregar el HTML del gasto
+            nuevoGasto.innerHTML = `${nombre} <span class="badge badge-primary badge-pill"> $ ${cantidad}</span> `;
+
+            // Boton para borrar el gasto
+            const btnBorrar = document.createElement("button");
+            btnBorrar.classList.add("btn", "btn-danger", "btn-gasto");
+            btnBorrar.innerHTML = "Borrar &times";
+            nuevoGasto.appendChild(btnBorrar);
+
+            // Agregar el HTML
+            gastoListado.appendChild(nuevoGasto);
+        });
+    }
+
+    limpiarHTML() {
+        while (gastoListado.firstChild) {
+            gastoListado.removeChild(gastoListado.firstChild);
+        }
+    }
+
+    actualizarRestante(restante) {
+        document.querySelector("#restante").textContent = restante;
     }
 }
 
@@ -120,6 +173,12 @@ function agregarGasto(e) {
 
     // Mensaje de todo bien
     ui.imprimirAlerta("Gasto agregado Correctamente");
+
+    // imprimiar los gastos
+    const { gastos, restante } = presupuesto;
+    ui.agregarGastoListado(gastos);
+
+    ui.actualizarRestante(restante);
 
     // Reinicia el formulario
     formulario.reset();

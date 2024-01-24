@@ -39,7 +39,7 @@ class Presupuesto {
 
     eliminarGasto(id) {
         this.gastos = this.gastos.filter((gasto) => gasto.id !== id);
-        // this.calcularRestante();
+        this.calcularRestante();
     }
 }
 
@@ -229,6 +229,10 @@ function eliminarGasto(id) {
     presupuesto.eliminarGasto(id);
 
     // Elimina los gastos del HTML
-    const { gastos } = presupuesto;
+    const { gastos, restante } = presupuesto;
     ui.mostrarGastos(gastos);
+
+    ui.actualizarRestante(restante);
+
+    ui.comprobarPresupuesto(presupuesto);
 }

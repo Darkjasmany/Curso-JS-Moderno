@@ -230,7 +230,6 @@ function nuevaCita(e) {
         editando = false;
     } else {
         // Generar un id uni        ui.imprimirAlerta("Todos los campos son obligatorios", "error");
-        co;
         citasObj.id = Date.now();
 
         // Creando una nueva cita con el objeto de citaObj

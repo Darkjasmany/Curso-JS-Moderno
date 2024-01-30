@@ -9,6 +9,7 @@ const datos = new Map();
 datos.set("nombre", "Juan");
 datos.set("profesion", "Desarrollador Web");
 
+// Entries Iterator
 // entries a las ciudades
 for (let entry of ciudades.entries()) {
     console.log(entry);

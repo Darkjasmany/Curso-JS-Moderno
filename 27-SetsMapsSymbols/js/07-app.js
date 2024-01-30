@@ -29,10 +29,10 @@ function* nuevoGenerador(carrito) {
 const carrito = ["Producto 1", "Producto 2", "Producto 3", "Producto 4"];
 
 // recorrer el iterador
-let iterador = nuevoGenerador(carrito);
+let iterador1 = nuevoGenerador(carrito);
 
-console.log(iterador.next());
-console.log(iterador.next());
-console.log(iterador.next());
-console.log(iterador.next());
-console.log(iterador.next());
+console.log(iterador1.next());
+console.log(iterador1.next());
+console.log(iterador1.next());
+console.log(iterador1.next());
+console.log(iterador1.next());

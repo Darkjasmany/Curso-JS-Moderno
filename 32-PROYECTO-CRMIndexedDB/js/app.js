@@ -1,9 +1,13 @@
-// Declaramos un eefi, es para que nuestras variables que declaremos de forma global se queden en este documento
 (function () {
     let DB;
 
     document.addEventListener("DOMContentLoaded", () => {
         crearDB();
+
+        // Esta funcion solo se ejecuta si ya exite la base de datos
+        if (window.indexedDB.open("crm", 1)) {
+            obtenerClientes();
+        }
     });
 
     // Código de IndexedDB
@@ -42,6 +46,62 @@
             objectStore.createIndex("id", "id", { unique: true });
 
             console.log("Database creada y lista");
+        };
+    }
+
+    function obtenerClientes() {
+        // Abrir la conexion
+        const abrirConexion = window.indexedDB.open("crm", 1);
+
+        // Revisamos si hay un error o no
+        abrirConexion.onerror = function () {
+            console.error("Error");
+        };
+
+        abrirConexion.onsuccess = function () {
+            // console.log("Todo OK");
+            DB = abrirConexion.result;
+
+            // Acceder al objectStore 1 acceder a la bd y acceder al objectStore
+            const objectStore = DB.transaction("crm").objectStore("crm");
+
+            objectStore.openCursor().onsuccess = function (e) {
+                const cursor = e.target.result; // el resultado que se haya ejecutado por este evento,
+
+                //el cursor va a recorrer desde la posicion 0 a cada elemento, y  parar pasar el siguiente registro lo hacemos con cursor.continue()
+
+                if (cursor) {
+                    // console.log(cursor.value);
+                    const { nombre, email, telefono, empresa, id } =
+                        cursor.value;
+
+                    const listadoClientes =
+                        document.querySelector("#listado-clientes");
+                    listadoClientes.innerHTML += `
+
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${nombre} </p>
+                                <p class="text-sm leading-10 text-gray-700"> ${email} </p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
+                                <p class="text-gray-700">${telefono}</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-700">    
+                                <p class="text-gray-600">${empresa}</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                                <a href="editar-cliente.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
+                                <a href="#" data-cliente="${id}" class="text-red-600 hover:text-red-900">Eliminar</a>
+                            </td>
+                        </tr>
+                    `;
+
+                    cursor.continue();
+                } else {
+                    console.log("No hay registros");
+                }
+            };
         };
     }
 })();

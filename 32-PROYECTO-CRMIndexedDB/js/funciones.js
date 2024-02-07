@@ -1,3 +1,5 @@
+let DB;
+
 function conectarDB() {
     // ABRIR CONEXIÓN EN LA BD:
 

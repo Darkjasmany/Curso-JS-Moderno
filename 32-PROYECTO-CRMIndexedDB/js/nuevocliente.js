@@ -4,14 +4,15 @@
     const formulario = document.querySelector("#formulario");
 
     document.addEventListener("DOMContentLoaded", () => {
-        formulario.addEventListener("submit", validarCliente);
-
         conectarDB();
+
+        formulario.addEventListener("submit", validarCliente);
     });
 
     function validarCliente(e) {
         e.preventDefault();
 
+        // Leer todos los inputs
         const nombre = document.querySelector("#nombre").value;
         const email = document.querySelector("#email").value;
         const telefono = document.querySelector("#telefono").value;
@@ -51,12 +52,12 @@
         // console.log(objectStore);
         objectStore.add(cliente); // agregamos el cliente
 
-        transaction.onerror = () => {
-            console.log("Hubo un error!");
+        transaction.onerror = function () {
+            // console.log("Hubo un error!");
             imprimirAlerta("Hubo un Error", "error");
         };
 
-        transaction.oncomplete = () => {
+        transaction.oncomplete = function () {
             console.log("Cliente Agregado");
 
             // Mostrar mensaje de que todo esta bien...
@@ -65,6 +66,23 @@
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 3000);
+        };
+    }
+
+    function conectarDB() {
+        // ABRIR CONEXIÓN EN LA BD:
+
+        let abrirConexion = window.indexedDB.open("crm", 1);
+
+        // si hay un error, lanzarlo
+        abrirConexion.onerror = function () {
+            console.log("Hubo un error");
+        };
+
+        // si todo esta bien, asignar a database el resultado
+        abrirConexion.onsuccess = function () {
+            // guardamos el resultado
+            DB = abrirConexion.result;
         };
     }
 })();

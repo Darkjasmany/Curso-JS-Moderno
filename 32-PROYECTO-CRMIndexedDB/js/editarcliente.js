@@ -4,10 +4,14 @@
     const emailInput = document.querySelector("#email");
     const telefonoInput = document.querySelector("#telefono");
     const empresaInput = document.querySelector("#empresa");
+    const formulario = document.querySelector("#formulario");
 
     document.addEventListener("DOMContentLoaded", () => {
         // Conectar a la BD
         conectarDB();
+
+        // Actualiza el registro
+        formulario.addEventListener("submit", actualizarCliente);
 
         // Verificar el ID de la URL
         const parametrosURL = new URLSearchParams(window.location.search);
@@ -52,6 +56,20 @@
         emailInput.value = email;
         telefonoInput.value = telefono;
         empresaInput.value = empresa;
+    }
+
+    function actualizarCliente(e) {
+        e.preventDefault();
+
+        if (
+            nombreInput.value === "" ||
+            emailInput.value === "" ||
+            telefonoInput.value === "" ||
+            empresaInput.value === ""
+        ) {
+            console.error("Hubo un error");
+            return;
+        }
     }
 
     function conectarDB() {

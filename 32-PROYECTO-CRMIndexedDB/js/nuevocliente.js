@@ -69,6 +69,7 @@
         };
     }
 
+    /*
     function conectarDB() {
         // ABRIR CONEXIÓN EN LA BD:
 
@@ -85,4 +86,5 @@
             DB = abrirConexion.result;
         };
     }
+    */
 })();

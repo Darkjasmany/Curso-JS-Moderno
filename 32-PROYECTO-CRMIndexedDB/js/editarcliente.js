@@ -42,7 +42,7 @@
                 // console.log(cursor.value); // En index db no hay n where por lo que para acceder al registro que queremos tenemos que hacer
 
                 if (cursor.value.id === Number(id)) {
-                    console.log(cursor.value); // aqui nos trae el registro especifico
+                    // console.log(cursor.value); // aqui nos trae el registro especifico
 
                     llenarFormulario(cursor.value);
                 }
@@ -53,12 +53,29 @@
     }
 
     function llenarFormulario(datosCliente) {
-        const { nombre, email, telefono, empresa, id } = datosCliente;
+        const { nombre, email, telefono, empresa } = datosCliente;
 
         nombreInput.value = nombre;
         emailInput.value = email;
         telefonoInput.value = telefono;
         empresaInput.value = empresa;
+    }
+
+    function conectarDB() {
+        // ABRIR CONEXIÓN EN LA BD:
+
+        let abrirConexion = window.indexedDB.open("crm", 1);
+
+        // si hay un error, lanzarlo
+        abrirConexion.onerror = function () {
+            console.log("Hubo un error");
+        };
+
+        // si todo esta bien, asignar a database el resultado
+        abrirConexion.onsuccess = function () {
+            // guardamos el resultado
+            DB = abrirConexion.result;
+        };
     }
 
     function actualizarCliente(e) {
@@ -70,7 +87,7 @@
             telefonoInput.value === "" ||
             empresaInput.value === ""
         ) {
-            console.error("Hubo un error");
+            // console.error("Hubo un error");
             imprimirAlerta("Todos los campos son obligatirios ", "error");
             return;
         }
@@ -89,31 +106,17 @@
         const transaction = DB.transaction(["crm"], "readwrite");
         const objectStore = transaction.objectStore("crm");
 
-        objectStore.put(clienteActualizado);
+        objectStore.put(clienteActualizado); // Encuetra nuestro id y va actualizar con los nuevos datos
 
         transaction.oncomplete = function () {
-            console.log("Actualizado correctamente");
+            imprimirAlerta("Actualizado correctamente");
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
         };
 
         transaction.onerror = function () {
             imprimirAlerta("Hubo un error", "error");
         };
-
-        function conectarDB() {
-            // ABRIR CONEXIÓN EN LA BD:
-
-            let abrirConexion = window.indexedDB.open("crm", 1);
-
-            // si hay un error, lanzarlo
-            abrirConexion.onerror = function () {
-                console.log("Hubo un error");
-            };
-
-            // si todo esta bien, asignar a database el resultado
-            abrirConexion.onsuccess = function () {
-                // guardamos el resultado
-                DB = abrirConexion.result;
-            };
-        }
     }
 })();

@@ -1,4 +1,5 @@
 const criptomonedasSelect = document.querySelector("#criptomonedas");
+const formulario = document.querySelector("#formulario");
 
 // Crear un Promise que descarga todas las criptomonedas
 // El cual se va a ejecutar solamente si puede descargar todas las criptomonedas
@@ -11,6 +12,8 @@ const obtenerCriptomonedas = (criptomonedas) =>
 // Una ves que el docuento esta listo, vamos a cargar las criptomonedas
 document.addEventListener("DOMContentLoaded", () => {
     consultarCriptomonedas();
+
+    formulario.addEventListener("submit", listener);
 });
 
 function consultarCriptomonedas() {

@@ -32,11 +32,45 @@ function guardarCliente() {
 
     // Mostrar las secciones
     mostrarSecciones();
+
+    // Obtener platillos de la API de JSON-SERVER
+    obtnerPlatillos();
 }
 
 function mostrarSecciones() {
     const seccionesOcultas = document.querySelectorAll(".d-none"); // devuelve como un arreglo por eso hacemos el recorrido con el foreach
     seccionesOcultas.forEach((seccion) => seccion.classList.remove("d-none"));
+}
+
+function obtnerPlatillos() {
+    const url = "http://localhost:4000/platillos";
+
+    fetch(url)
+        .then((respuesta) => respuesta.json())
+        .then((resultado) => mostrarPlatillos(resultado))
+        .catch((error) => console.log(error));
+}
+
+function mostrarPlatillos(platillos) {
+    // console.log(platillos);
+
+    const contenido = document.querySelector("#platillos .contenido");
+
+    // Foreach permite acceder a cada uno de los resultados de nuestra API
+    platillos.forEach((platillo) => {
+        // console.log(platillo);
+        const { nombre } = platillo;
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+
+        const nombrePlatillo = document.createElement("P");
+        nombrePlatillo.classList.add("col-md-4");
+        nombrePlatillo.textContent = nombre;
+
+        row.appendChild(nombrePlatillo);
+        contenido.appendChild(row);
+        // console.log(nombrePlatillo);
+    });
 }
 
 function alerta(mensaje) {

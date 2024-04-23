@@ -4,6 +4,12 @@ let cliente = {
     pedido: [],
 };
 
+const categorias = {
+    1: "Comidas",
+    2: "bebidas",
+    3: "Postres",
+};
+
 const btnGuardarCliente = document.querySelector("#guardar-cliente");
 
 btnGuardarCliente.addEventListener("click", guardarCliente);
@@ -59,18 +65,84 @@ function mostrarPlatillos(platillos) {
     // Foreach permite acceder a cada uno de los resultados de nuestra API
     platillos.forEach((platillo) => {
         // console.log(platillo);
-        const { nombre } = platillo;
+        const { id, nombre, precio, categoria } = platillo;
         const row = document.createElement("DIV");
-        row.classList.add("row");
+        row.classList.add("row", "py-3", "border-top");
 
-        const nombrePlatillo = document.createElement("P");
+        const nombrePlatillo = document.createElement("DIV");
         nombrePlatillo.classList.add("col-md-4");
         nombrePlatillo.textContent = nombre;
 
+        const precioPlatillo = document.createElement("DIV");
+        precioPlatillo.classList.add("col-md-3", "fw-bold");
+        precioPlatillo.textContent = `$ ${precio}`;
+
+        const categoriaPlatillo = document.createElement("DIV");
+        categoriaPlatillo.classList.add("col-md-3");
+        categoriaPlatillo.textContent = categorias[categoria] || " "; // Con el arreglo de Categorias lo que va hacer es deacuerdo al ID lo va a filtrar y muestra caso contrario muestra vacio
+
+        const inputCantidad = document.createElement("INPUT");
+        inputCantidad.type = "number";
+        inputCantidad.min = 0;
+        inputCantidad.value = 0;
+        inputCantidad.id = `producto-${id}`;
+        inputCantidad.classList.add("form-control", "text-end");
+
+        // Funcion que detecta la cantidad y el platillo que se esta agregando una funcion lineal para que al momento que damos clic para cambiar las cantidades hace cambio de cantidad, de esta forma esta funcion no se esta llamando hasta que se cumpla el evento, asi mismo quiero leer el numero que se esta colocando
+        inputCantidad.onchange = function () {
+            const cantidad = parseInt(inputCantidad.value); // Todo lo que se lee es un string asi sea un numero entero por eso la conversion
+            agregarPlatillo({ ...platillo, cantidad }); // pasamos todo el objeto de platillo y lo convertimos en un objeto usamos un spreadoperator y pasamos todo el objeto para que todo quede en un solo objeto
+        };
+
+        const agregarInputCantidad = document.createElement("DIV");
+        agregarInputCantidad.classList.add("col-md-2");
+        agregarInputCantidad.appendChild(inputCantidad);
+
         row.appendChild(nombrePlatillo);
+        row.appendChild(precioPlatillo);
+        row.appendChild(categoriaPlatillo);
+        row.appendChild(agregarInputCantidad);
+
         contenido.appendChild(row);
         // console.log(nombrePlatillo);
     });
+}
+
+function agregarPlatillo(producto) {
+    // console.log(producto);
+    const { cantidad, categoria, id, nombre, precio } = producto;
+
+    // Extraer el producto actual
+    let { pedido } = cliente;
+
+    // Revisar que la cantidad es mayor a 0
+    if (cantidad > 0) {
+        // console.log(pedido.some((articulo) => articulo.id === producto.id));
+        // vamos a verificar si 1 elemento ya existe en un arreglo
+        // Comprueba si el elemento ya existe en un array
+        if (pedido.some((articulo) => articulo.id === producto.id)) {
+            // El articulo ya existe, actualizar la cantidad
+            const pedidoActualizado = pedido.map((articulo) => {
+                if (articulo.id === producto.id) {
+                    articulo.cantidad = producto.cantidad;
+                }
+                return articulo;
+            });
+            // Se asigna el nuevo array a cliente.pedido
+            cliente.pedido = [...pedidoActualizado];
+        } else {
+            // el articulo no existe lo agregamos al array de pedido
+            cliente.pedido = [...pedido, producto]; // agrego una copia del pedido previo que ya habia en el arreglo y le paso el producto de esa forma se va agregando al final del arreglo
+        }
+    } else {
+        // Eliminar elementos cuando la cantidad es 0
+        const resultado = pedido.filter(
+            (articulo) => articulo.id !== producto.id
+        );
+        cliente.pedido = [...resultado];
+    }
+
+    console.log(cliente.pedido);
 }
 
 function alerta(mensaje) {

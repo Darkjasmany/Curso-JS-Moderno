@@ -286,7 +286,7 @@ function eliminarProducto(id) {
     }
 
     // El producto se elimino por lo tanto regresamos la cantidad a 0 en el formulario
-    // console.log(cliente.pedido);
+
     const productoEliminado = `#producto-${id}`;
     const inputEliminado = document.querySelector(productoEliminado);
     inputEliminado.value = 0;

@@ -147,8 +147,13 @@ function agregarPlatillo(producto) {
     // Limpiar el código HTML previo
     limpiarHTML();
 
-    // Mostrar el Resument
-    actualizarResumen();
+    // Comprobar si un arreglo esta vacio, si hay algo en el arreglo
+    if (cliente.pedido.length) {
+        // Mostrar el Resument
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
 }
 
 function actualizarResumen() {
@@ -222,18 +227,28 @@ function actualizarResumen() {
 
         const subtotalValor = document.createElement("SPAN");
         subtotalValor.classList.add("fw-normal");
-        subtotalValor.textContent = `$ ${precio * cantidad} `;
+        subtotalValor.textContent = calcularSubtotal(precio, cantidad);
 
         // Agregar valores a sus contenedores
         cantidadEl.appendChild(cantidadValor);
         precioEl.appendChild(precioValor);
         subtotalEl.appendChild(subtotalValor);
 
+        // Boton de eliminar
+        const btnEliminar = document.createElement("BUTTON");
+        btnEliminar.classList.add("btn-danger", "btn");
+        btnEliminar.textContent = "Eliminar del Pedido";
+        // Funcion para eliminar del pedido
+        btnEliminar.onclick = function () {
+            eliminarProducto(id);
+        };
+
         // Agregar Elementos al LI
         lista.appendChild(nombreEl);
         lista.appendChild(cantidadEl);
         lista.appendChild(precioEl);
         lista.appendChild(subtotalEl);
+        lista.appendChild(btnEliminar);
 
         // Agregar lista al grupo princial
         grupo.appendChild(lista);
@@ -246,6 +261,45 @@ function actualizarResumen() {
     resumen.appendChild(grupo);
 
     contenido.appendChild(resumen);
+}
+
+function calcularSubtotal(precio, cantidad) {
+    return `$ ${precio * cantidad}`;
+}
+
+function eliminarProducto(id) {
+    const { pedido } = cliente;
+    const resultado = pedido.filter((articulo) => articulo.id !== id);
+    cliente.pedido = [...resultado];
+
+    // console.log(cliente.pedido);
+
+    // Limpiar el código HTML previo
+    limpiarHTML();
+
+    // Verificamos si el arreglo del cliente no esta vacio
+    if (cliente.pedido.length) {
+        // Mostrar el Resument
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+
+    // El producto se elimino por lo tanto regresamos la cantidad a 0 en el formulario
+    // console.log(cliente.pedido);
+    const productoEliminado = `#producto-${id}`;
+    const inputEliminado = document.querySelector(productoEliminado);
+    inputEliminado.value = 0;
+    // console.log(productoEliminado);
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector("#resumen .contenido");
+    const texto = document.createElement("P");
+    texto.classList.add("text-center");
+    texto.textContent = "Añade los elementos del pedido";
+
+    contenido.appendChild(texto);
 }
 
 function limpiarHTML() {

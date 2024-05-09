@@ -1,11 +1,25 @@
 {
-    "clientes": [
-        {
-            "id": 26,
-            "nombre": "Juan NUEVO!",
-            "email": "correo2@correo.com",
-            "telefono": "12",
-            "empresa": "12212"
-        }
-    ]
+  "clientes": [
+    {
+      "id": "26",
+      "nombre": "Juan NUEVO!",
+      "email": "correo2@correo.com",
+      "telefono": "12",
+      "empresa": "12212"
+    },
+    {
+      "id": "8215",
+      "nombre": "Jasmany",
+      "email": "jasmanyfranco@gmail.com",
+      "telefono": "0967537415",
+      "empresa": "NicoTech"
+    },
+    {
+      "id": "bdbb",
+      "nombre": "Jasmany",
+      "email": "jasmanyfranco@gmail.com",
+      "telefono": "0967537415",
+      "empresa": "NicoTech"
+    }
+  ]
 }

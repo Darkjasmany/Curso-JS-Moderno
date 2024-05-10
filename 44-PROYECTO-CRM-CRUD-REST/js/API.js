@@ -30,3 +30,42 @@ export const obtenerClientes = async () => {
         console.error(error);
     }
 };
+
+// Elimina 1 Cliente
+export const eliminarCliente = async (id) => {
+    try {
+        // console.log(id);
+        // Esto inyecta en la url el id a eliminar
+        await fetch(`${url}/${id}`, { method: "DELETE" });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Obtiene un cliente por su id
+export const obtenerCliente = async (id) => {
+    try {
+        // console.log(id);
+        const resultado = await fetch(`${url}/${id}`);
+        const cliente = await resultado.json();
+        return cliente;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// Actualiza un registro
+export const editarCliente = async (cliente) => {
+    try {
+        await fetch(`${url}/${cliente.id}`, {
+            method: "PUT",
+            body: JSON.stringify(cliente),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        window.location.href = "index.html";
+    } catch (error) {
+        console.log(error);
+    }
+};

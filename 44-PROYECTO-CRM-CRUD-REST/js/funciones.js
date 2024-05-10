@@ -29,3 +29,7 @@ export function mostrarAlerta(mensaje) {
         }, 3000);
     }
 }
+
+export function validar(Obj) {
+    return !Object.values(Obj).every((input) => input !== "");
+}

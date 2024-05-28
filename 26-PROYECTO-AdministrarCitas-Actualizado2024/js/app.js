@@ -1,7 +1,10 @@
 // Selectores
 const pacienteInput = document.querySelector("#paciente");
 const propietarioInput = document.querySelector("#propietario");
+const telefonoInput = document.querySelector("#telefono");
 const emailInput = document.querySelector("#email");
+const fechaIngresoInput = document.querySelector("#fechaIngreso");
+const horaInput = document.querySelector("#hora");
 const fechaInput = document.querySelector("#fecha");
 const sintomasInput = document.querySelector("#sintomas");
 
@@ -15,7 +18,10 @@ const contenedorCitas = document.querySelector("#citas");
 // Eventos
 pacienteInput.addEventListener("change", datosCita);
 propietarioInput.addEventListener("change", datosCita);
+telefonoInput.addEventListener("change", datosCita);
 emailInput.addEventListener("change", datosCita);
+fechaIngresoInput.addEventListener("change", datosCita);
+horaInput.addEventListener("change", datosCita);
 fechaInput.addEventListener("change", datosCita);
 sintomasInput.addEventListener("change", datosCita);
 
@@ -28,7 +34,10 @@ const citaObj = {
     id: generarIds(),
     paciente: "",
     propietario: "",
+    telefono: "",
     email: "",
+    fechaIngreso: "",
+    hora: "",
     fecha: "",
     sintomas: "",
 };
@@ -112,7 +121,7 @@ class AdminCitas {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
         }
 
-        // si hay citas
+        // si no hay citas
         if (this.citas.length === 0) {
             contenedorCitas.innerHTML =
                 '  <p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
@@ -133,6 +142,15 @@ class AdminCitas {
                 "p-3"
             );
 
+            const id = document.createElement("p");
+            id.classList.add(
+                "font-normal",
+                "mb-3",
+                "text-gray-700",
+                "normal-case"
+            );
+            id.innerHTML = `<span class="font-bold uppercase">Id: </span> ${cita.id}`;
+
             const paciente = document.createElement("p");
             paciente.classList.add(
                 "font-normal",
@@ -151,6 +169,15 @@ class AdminCitas {
             );
             propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${cita.propietario}`;
 
+            const telefono = document.createElement("p");
+            telefono.classList.add(
+                "font-normal",
+                "mb-3",
+                "text-gray-700",
+                "normal-case"
+            );
+            telefono.innerHTML = `<span class="font-bold uppercase">Telefono: </span> ${cita.telefono}`;
+
             const email = document.createElement("p");
             email.classList.add(
                 "font-normal",
@@ -160,6 +187,24 @@ class AdminCitas {
             );
             email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${cita.email}`;
 
+            const fechaIngreso = document.createElement("p");
+            fechaIngreso.classList.add(
+                "font-normal",
+                "mb-3",
+                "text-gray-700",
+                "normal-case"
+            );
+            fechaIngreso.innerHTML = `<span class="font-bold uppercase">Fecha Ingreso: </span> ${cita.fechaIngreso}`;
+
+            const hora = document.createElement("p");
+            hora.classList.add(
+                "font-normal",
+                "mb-3",
+                "text-gray-700",
+                "normal-case"
+            );
+            hora.innerHTML = `<span class="font-bold uppercase">Hora Ingreso: </span> ${cita.hora}`;
+
             const fecha = document.createElement("p");
             fecha.classList.add(
                 "font-normal",
@@ -167,7 +212,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${cita.fecha}`;
+            fecha.innerHTML = `<span class="font-bold uppercase">Fecha Alta: </span> ${cita.fecha}`;
 
             const sintomas = document.createElement("p");
             sintomas.classList.add(
@@ -237,9 +282,13 @@ class AdminCitas {
             contenedorBotones.appendChild(btnEliminar);
 
             // Agregar al HTML
+            divCita.appendChild(id);
             divCita.appendChild(paciente);
             divCita.appendChild(propietario);
+            divCita.appendChild(telefono);
             divCita.appendChild(email);
+            divCita.appendChild(fechaIngreso);
+            divCita.appendChild(hora);
             divCita.appendChild(fecha);
             divCita.appendChild(sintomas);
             divCita.appendChild(contenedorBotones);
@@ -271,6 +320,8 @@ function submitCita(e) {
         });
         return;
     }
+
+    // console.log(citaObj);
 
     if (editando) {
         // console.log("editando registro");
@@ -316,11 +367,15 @@ function reinciarObjetoCita() {
             id: generarIds(),
             paciente: "",
             propietario: "",
+            telefono: "",
             email: "",
+            fechaIngreso: "",
+            hora: "",
             fecha: "",
             sintomas: "",
         })
     );
+
     // Esta forma es lo mismo que la otra
 }
 
@@ -335,7 +390,10 @@ function cargarEdicion(cita) {
     // Como en el HTML
     pacienteInput.value = cita.paciente;
     propietarioInput.value = cita.propietario;
+    telefonoInput.value = cita.telefono;
     emailInput.value = cita.email;
+    fechaIngresoInput.value = cita.fechaIngreso;
+    horaInput.value = cita.hora;
     fechaInput.value = cita.fecha;
     sintomasInput.value = cita.sintomas;
 

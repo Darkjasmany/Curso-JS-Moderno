@@ -246,7 +246,7 @@ class AdminCitas {
             // Toma una copia completa del objeto, ya que el forEach solo hace el recorrido del objeto
             // Puede se con el structuredClone o un destrocturing
             const clone = structuredClone(cita);
-            // const clone = { ...cita };
+            //const clone = { ...cita };
 
             // Event Handler
             btnEditar.onclick = () => {
@@ -354,14 +354,18 @@ function validar(Obj) {
 
 function reinciarObjetoCita() {
     // Reinicar el objeto Primera forma
-    // citaObj.id = generarIds;
-    // citaObj.paciente = "";
-    // citaObj.propietario = "";
-    // citaObj.email = "";
-    // citaObj.fecha = "";
-    // citaObj.sintomas = "";
+    citaObj.id = generarIds();
+    citaObj.paciente = "";
+    citaObj.propietario = "";
+    citaObj.telefono = "";
+    citaObj.email = "";
+    citaObj.fechaIngreso = "";
+    citaObj.hora = "";
+    citaObj.fecha = "";
+    citaObj.sintomas = "";
 
     // Reiniciar el objeto segunda forma
+    /*
     Object.assign(
         (citaObj = {
             id: generarIds(),
@@ -375,7 +379,7 @@ function reinciarObjetoCita() {
             sintomas: "",
         })
     );
-
+*/
     // Esta forma es lo mismo que la otra
 }
 

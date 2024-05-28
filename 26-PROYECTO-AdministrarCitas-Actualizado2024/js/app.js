@@ -6,6 +6,9 @@ const fechaInput = document.querySelector("#fecha");
 const sintomasInput = document.querySelector("#sintomas");
 
 const formulario = document.querySelector("#formulario-cita");
+const formularioInput = document.querySelector(
+    '#formulario-cita input[type="submit"]'
+);
 
 const contenedorCitas = document.querySelector("#citas");
 
@@ -83,14 +86,37 @@ class AdminCitas {
 
     agregar(cita) {
         this.citas = [...this.citas, cita]; // con el expredoperator tomamos una copia de nuestro arreglo de citas y le mandamos la cita
-        console.log(this.citas);
+        // console.log(this.citas);
         this.mostrar(); // llama el metodo mostrar que renderiza en pantalla
+    }
+
+    editar(citaActualizada) {
+        //map itera y puede modificarlos y regresa un arreglo nuevo
+        // vamos a recorrer el objeto de cita si cita.id = al id de la cita actualiza devuelve el objeto de citaActilzada, si no devuelve la cita
+        // Este codigo lo que hace es iterar sobre las citas que tenemos en pantalla y ese objeto nuevo que llega rescribe el que tenemos y renderizamos una vez mas codifo html
+        this.citas = this.citas.map((cita) =>
+            cita.id === citaActualizada.id ? citaActualizada : cita
+        );
+        this.mostrar();
+    }
+
+    eliminar(id) {
+        // console.log(id);
+        this.citas = this.citas.filter((cita) => cita.id !== id);
+        this.mostrar();
     }
 
     mostrar() {
         // Limpiar el HTML
         while (contenedorCitas.firstChild) {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
+        }
+
+        // si hay citas
+        if (this.citas.length === 0) {
+            contenedorCitas.innerHTML =
+                '  <p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
+            return;
         }
 
         // Generando las citas
@@ -200,6 +226,10 @@ class AdminCitas {
             btnEliminar.innerHTML =
                 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
 
+            btnEliminar.onclick = () => {
+                this.eliminar(cita.id);
+            };
+
             const contenedorBotones = document.createElement("DIV");
             contenedorBotones.classList.add("flex", "justify-between", "mt-10");
 
@@ -243,7 +273,12 @@ function submitCita(e) {
     }
 
     if (editando) {
-        console.log("editando registro");
+        // console.log("editando registro");
+        citas.editar({ ...citaObj });
+        new Notificacion({
+            texto: "Guardado Correctamente",
+            tipo: "exito",
+        });
     } else {
         // Almacenamos en el objeto una copia de citaObj para que no rescriba el objeto anterior
         citas.agregar({ ...citaObj });
@@ -258,7 +293,10 @@ function submitCita(e) {
     // Reiniciar el formulario y el objetoCita
     formulario.reset();
     reinciarObjetoCita();
+    formularioInput.value = "Registrar Paciente";
+    editando = false;
 }
+
 function validar(Obj) {
     return !Object.values(Obj).every((input) => input !== "");
 }
@@ -302,4 +340,6 @@ function cargarEdicion(cita) {
     sintomasInput.value = cita.sintomas;
 
     editando = true;
+
+    formularioInput.value = "Guardar Cambios";
 }

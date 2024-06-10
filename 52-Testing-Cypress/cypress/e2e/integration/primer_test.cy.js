@@ -2,7 +2,7 @@
 
 describe("Carga la página principal", () => {
     it("Carga la página principal", () => {
-        cy.visit("http://127.0.0.1:5500/52-Testing-Cypress/index.html");
+        cy.visit("/index.html");
 
         // Verificar el elemento y su texto
         cy.contains(

@@ -10,7 +10,8 @@
     "author": "Jasmany Franco P.",
     "license": "ISC",
     "dependencies": {
-        "express": "^4.19.2"
+        "express": "^4.19.2",
+        "pug": "^3.0.3"
     },
     "devDependencies": {
         "nodemon": "^3.1.3"

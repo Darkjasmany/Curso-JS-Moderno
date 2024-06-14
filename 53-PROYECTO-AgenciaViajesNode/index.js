@@ -11,6 +11,17 @@ const port = process.env.PORT || 4000;
 // Habilitar PUG
 app.set("view engine", "pug");
 
+// Obtener año Actual
+// next pasa al siguiente Middleware y lo forzamos hacerlo con el return next()
+app.use((req, res, next) => {
+    const year = new Date();
+
+    // Escribir sobre ese objeto, como .use se usa en todas las etapas de Express es facil acceder a esta variable en cualquiera de estas vistas
+    res.locals.actualYear = year.getFullYear();
+    res.locals.nombreSitio = "Agencia de Viajes";
+    next();
+});
+
 // Definir la carpeta publica
 app.use(express.static("public"));
 

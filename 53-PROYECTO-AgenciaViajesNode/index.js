@@ -1,6 +1,12 @@
-// Importando Express
+// TODO: Importando Express, las Rutas, la config de BD
 import express from "express";
 import router from "./routes/index.js";
+import db from "./config/db.js";
+
+// Conectar a la BD, definido mediante un promise
+db.authenticate()
+    .then(() => console.log("Conexión Exitosa"))
+    .then((error) => console.error(error));
 
 // Lo asignamos a esta variable para ejecutar Express
 const app = express();

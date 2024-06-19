@@ -1,3 +1,6 @@
+// Importamos el modelo
+import { Viaje } from "../models/Viajes.js";
+
 // req- lo que enviamos : res - lo que express responde
 const paginaInicio = (req, res) => {
     res.render("inicio", {
@@ -12,9 +15,16 @@ const paginaNosotros = (req, res) => {
     });
 };
 
-const paginaViajes = (req, res) => {
+const paginaViajes = async (req, res) => {
+    // Consultar BD
+    // este metodo va a traer todos los registros de esa tabla
+    const viajes = await Viaje.findAll();
+
+    console.log(viajes);
+
     res.render("viajes", {
         pagina: "Viajes",
+        viajes, // Esto es igual a viajes: viajes
     });
 };
 

@@ -1,4 +1,5 @@
 // Importamos el modelo
+import { request } from "express";
 import { Viaje } from "../models/Viajes.js";
 
 // req- lo que enviamos : res - lo que express responde
@@ -20,10 +21,10 @@ const paginaViajes = async (req, res) => {
     // este metodo va a traer todos los registros de esa tabla
     const viajes = await Viaje.findAll();
 
-    console.log(viajes);
+    // console.log(viajes);
 
     res.render("viajes", {
-        pagina: "Viajes",
+        pagina: "Próximos Viajes",
         viajes, // Esto es igual a viajes: viajes
     });
 };
@@ -32,6 +33,21 @@ const paginaTestimoniales = (req, res) => {
     res.render("testimoniales", {
         pagina: "Testimoniales",
     });
+};
+
+// Muestra su viaje por su slug
+const paginaDetalleViaje = async (req, res) => {
+    const { slug } = req.params;
+    try {
+        const viaje = await Viaje.findOne({ where: { slug } }); //slug: slug
+
+        res.render("viaje", {
+            pagina: "Información Viaje",
+            viaje,
+        });
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 const paginaContacto = (req, res) => {
@@ -46,4 +62,5 @@ export {
     paginaViajes,
     paginaTestimoniales,
     paginaContacto,
+    paginaDetalleViaje,
 };

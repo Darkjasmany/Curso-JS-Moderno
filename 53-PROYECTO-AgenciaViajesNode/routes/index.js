@@ -5,6 +5,7 @@ import {
     paginaNosotros,
     paginaTestimoniales,
     paginaViajes,
+    paginaDetalleViaje,
 } from "../controllers/paginasController.js";
 
 const router = express.Router(); // Estamos instanciando Express pero utilizando Router
@@ -12,6 +13,7 @@ const router = express.Router(); // Estamos instanciando Express pero utilizando
 router.get("/", paginaInicio);
 router.get("/nosotros", paginaNosotros);
 router.get("/viajes", paginaViajes);
+router.get("/viajes/:slug", paginaDetalleViaje); // Lo creamos las subrutas con un comodin, es el campo de la BD
 router.get("/testimoniales", paginaTestimoniales);
 router.get("/contacto", paginaContacto);
 

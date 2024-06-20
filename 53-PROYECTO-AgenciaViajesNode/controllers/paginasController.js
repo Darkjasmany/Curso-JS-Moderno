@@ -1,6 +1,7 @@
 // Importamos el modelo
 import { request } from "express";
 import { Viaje } from "../models/Viajes.js";
+import { Testimoniales } from "../models/Testimoniales.js";
 
 // req- lo que enviamos : res - lo que express responde
 const paginaInicio = (req, res) => {
@@ -29,14 +30,11 @@ const paginaViajes = async (req, res) => {
     });
 };
 
-const paginaTestimoniales = (req, res) => {
-    res.render("testimoniales", {
-        pagina: "Testimoniales",
-    });
-};
-
 // Muestra su viaje por su slug
 const paginaDetalleViaje = async (req, res) => {
+    // console.log(req.params);// req.params, segun el comodin segun definimos en la ruta es el campo de la BD que lo extraemos
+    // console.log("aqui");
+
     const { slug } = req.params;
     try {
         const viaje = await Viaje.findOne({ where: { slug } }); //slug: slug
@@ -48,6 +46,14 @@ const paginaDetalleViaje = async (req, res) => {
     } catch (error) {
         console.error(error);
     }
+};
+
+const paginaTestimoniales = async (req, res) => {
+    const testimoniales = await Testimoniales.findAll();
+    res.render("testimoniales", {
+        pagina: "Testimoniales",
+        testimoniales,
+    });
 };
 
 const paginaContacto = (req, res) => {

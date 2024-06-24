@@ -107,7 +107,7 @@ footer .nav a,
             rgba(0, 0, 0, 0.5) 0%,
             rgba(0, 0, 0, 0.5) 100%
         ),
-        url(../img/cupon.jpg);
+        url(../img/Cuenca.webp);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -121,7 +121,7 @@ footer .nav a,
                 transparent 50%,
                 transparent 100%
             ),
-            url(../img/cupon.jpg);
+            url(../img/Cuenca.webp);
     }
 }
 .descuento .contenido {

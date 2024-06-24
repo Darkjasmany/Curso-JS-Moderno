@@ -7,6 +7,7 @@ import { Testimonial } from "../models/Testimoniales.js";
 const paginaInicio = (req, res) => {
     res.render("inicio", {
         pagina: "Inicio", //  pasamos la variable de pagina donde indicamos el titulo y lo vemos con h1
+        clase: "home",
     });
 };
 

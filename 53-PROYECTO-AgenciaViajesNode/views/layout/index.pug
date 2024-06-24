@@ -9,9 +9,11 @@ html(lang="en")
         link(href='https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Staatliches&display=swap' rel='stylesheet')
         link(rel="stylesheet", href="/css/bootstrap.css")
         link(rel="stylesheet", href="/css/style.css")
-    body 
+    //- Esta clase de nombre clase esta definida en los estilos, la enviamos de pagina controller esto hace que se vea chevere el index
+    body(class=clase)
         //- Aqui definimos que va a ir todo nuestro contenido de las vista
         //- Incluimos archivos externos en este caso el header que esta en el mismo nivel
         include header
+        block slider
         block contenido
         include footer 

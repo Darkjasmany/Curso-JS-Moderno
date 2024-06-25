@@ -2,5 +2,40 @@ extends ./layout/index
 
 block contenido
     main.container.mt-5
+        h1.text-center.mt-5 #{pagina}
+
+        blockquote.text-center Habla con uno de nuestros consultores y compra nuestros productos y servicios
+
         .row
-            h1 #{pagina}
+            .col-md-12
+
+                .row.justify-content-center.col 
+                    .col-md-6
+                        form(action="/contacto" method="post")
+
+                            .row.justify-content-around
+                                .col-md-6
+                                    .form-group
+                                        label(for="nombre") Nombre
+                                        input#nombre.form-control(type="text", placeholder= "Tu Nombre", name= "nombre")
+                                .col-md-6
+                                    .form-group
+                                        label(for="apellido") Apellidos
+                                        input#apellido.form-control(type="text", placeholder= "Tus Apellidos", name= "apellido")      
+                            .form-group
+                                label(for='correo') Correo Electrónico
+                                input#correo.form-control(type='email', placeholder='Tu Correo Electrónico', name="correo", value=correo)
+                            .form-group
+                                label(for='telefono') Teléfono
+                                input#correo.form-control(type='tel', placeholder='Tu Teléfono', name="telefono", value=telefono)
+                            .form-group
+                                label(for='direccion') Direccción
+                                input#correo.form-control(type='text', placeholder='Tu Dirección', name="direccion", value=direccion)
+                            .form-group     
+                                label(for='mensaje') Mensaje
+                                textarea#mensaje.form-control(name="mensaje", rows=4, placeholder="Tu Mensaje")=mensaje
+                            .row.justify-content-around
+                                .col-md-6
+                                    input.btn.btn-success.btn-block(type="submit")
+                                .col-md-6.align-self-center
+                                    p.text-end ¡Gracias por tu mensaje!

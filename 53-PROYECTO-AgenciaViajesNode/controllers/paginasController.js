@@ -83,7 +83,7 @@ const paginaTestimoniales = async (req, res) => {
 
 const paginaContacto = (req, res) => {
     res.render("contacto", {
-        pagina: "Contacto",
+        pagina: "Contactanos",
     });
 };
 

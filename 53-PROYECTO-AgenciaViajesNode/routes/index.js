@@ -8,6 +8,7 @@ import {
     paginaDetalleViaje,
 } from "../controllers/paginasController.js";
 import { guardarTestimonial } from "../controllers/testimonialController.js";
+import { enviarContacto } from "../controllers/contactoController.js";
 
 const router = express.Router(); // Estamos instanciando Express pero utilizando Router
 
@@ -21,5 +22,6 @@ router.get("/viajes/:slug", paginaDetalleViaje); // Lo creamos las subrutas con 
 router.get("/testimoniales", paginaTestimoniales);
 router.post("/testimoniales", guardarTestimonial);
 router.get("/contacto", paginaContacto);
+router.post("/contacto", enviarContacto);
 
 export default router;

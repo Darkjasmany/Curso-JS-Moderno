@@ -1,6 +1,6 @@
 import { Contacto } from "../models/Contacto.js";
 
-const enviarContacto = (req, res) => {
+const enviarContacto = async (req, res) => {
     console.log(req.body); // me muestra el arreglo de nuestro formulario de la vista
     // Validar
     const { nombre, apellido, correo, telefono, direccion, mensaje } = req.body;
@@ -31,9 +31,28 @@ const enviarContacto = (req, res) => {
         res.render("contacto", {
             pagina: "Contactanos",
             errores,
+            nombre,
+            apellido,
+            correo,
+            telefono,
+            direccion,
+            mensaje,
         });
     } else {
-        res.redirect("/contacto");
+        // Almacenarlo en la BD
+        try {
+            await Contacto.create({
+                nombre,
+                apellido,
+                correo,
+                telefono,
+                direccion,
+                mensaje,
+            });
+            res.redirect("/contacto");
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 

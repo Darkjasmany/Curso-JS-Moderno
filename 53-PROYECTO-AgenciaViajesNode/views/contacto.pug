@@ -4,11 +4,13 @@ block contenido
     main.container.mt-5
         h1.text-center.mt-5 #{pagina}
 
+        //- p= JSON.stringify(errores)
         blockquote.text-center Habla con uno de nuestros consultores y compra nuestros productos y servicios
-
         .row
             .col-md-12
-
+                if(errores) 
+                    each error in errores
+                        .alert.alert-danger.text-center=error.mensaje
                 .row.justify-content-center.col 
                     .col-md-6
                         form(action="/contacto" method="post")
@@ -17,11 +19,11 @@ block contenido
                                 .col-md-6
                                     .form-group
                                         label(for="nombre") Nombre
-                                        input#nombre.form-control(type="text", placeholder= "Tu Nombre", name= "nombre")
+                                        input#nombre.form-control(type="text", placeholder= "Tu Nombre", name= "nombre", value= nombre)
                                 .col-md-6
                                     .form-group
                                         label(for="apellido") Apellidos
-                                        input#apellido.form-control(type="text", placeholder= "Tus Apellidos", name= "apellido")      
+                                        input#apellido.form-control(type="text", placeholder= "Tus Apellidos", name= "apellido",value=apellido)      
                             .form-group
                                 label(for='correo') Correo Electrónico
                                 input#correo.form-control(type='email', placeholder='Tu Correo Electrónico', name="correo", value=correo)

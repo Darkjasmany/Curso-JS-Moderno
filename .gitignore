@@ -6,3 +6,5 @@ node_modules
 # Ignora el package-lock-json
 **/package-lock.json
 
+# Ignorar variables de entorno
+.env
